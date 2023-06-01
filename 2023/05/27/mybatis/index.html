@@ -1,0 +1,816 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Along">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="用来循环容器的标签forEach,查看例子foreach元素的属性主要有item，index，collection，open，separator，close。  item：集合中元素迭代时的别名， index：集合中元素迭代时的索引 open：常用语where语句中，表示以什么开始，比如以’(‘开始 separator：表示在每次进行迭代时的分隔符， close 常用语where语句中，表示以什么">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mybatis">
+<meta property="og:url" content="http://example.com/2023/05/27/mybatis/index.html">
+<meta property="og:site_name" content="Along">
+<meta property="og:description" content="用来循环容器的标签forEach,查看例子foreach元素的属性主要有item，index，collection，open，separator，close。  item：集合中元素迭代时的别名， index：集合中元素迭代时的索引 open：常用语where语句中，表示以什么开始，比如以’(‘开始 separator：表示在每次进行迭代时的分隔符， close 常用语where语句中，表示以什么">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-05-27T14:40:10.000Z">
+<meta property="article:modified_time" content="2023-06-01T14:42:19.106Z">
+<meta property="article:author" content="Along">
+<meta property="article:tag" content="mybatis">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>mybatis - Along</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"yfyxCH6385KLuweSoovXwOlm-gzGzoHsz","app_key":"mJnFLmqSoVyX0Gsp3K2ghPo8","server_url":"https://yfyxch63.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DK-mylucky</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="mybatis"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-05-27 22:40" pubdate>
+          2023年5月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          15k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          129 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">mybatis</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3 id="用来循环容器的标签forEach-查看例子"><a href="#用来循环容器的标签forEach-查看例子" class="headerlink" title="用来循环容器的标签forEach,查看例子"></a><strong>用来循环容器的标签forEach,查看例子</strong></h3><p>foreach元素的属性主要有item，index，collection，open，separator，close。</p>
+<ul>
+<li>item：集合中元素迭代时的别名，</li>
+<li>index：集合中元素迭代时的索引</li>
+<li>open：常用语where语句中，表示以什么开始，比如以’(‘开始</li>
+<li>separator：表示在每次进行迭代时的分隔符，</li>
+<li>close 常用语where语句中，表示以什么结束，</li>
+</ul>
+<p>在使用foreach的时候最关键的也是最容易出错的就是collection属性，该属性是必须指定的，但是在不同情况下，该属性的值是不一样的，主要有一下3种情况：</p>
+<ul>
+<li>如果传入的是单参数且参数类型是一个List的时候，collection属性值为list .</li>
+<li>如果传入的是单参数且参数类型是一个array数组的时候，collection的属性值为array .</li>
+<li>如果传入的参数是多个的时候，我们就需要把它们封装成一个Map了，当然单参数也可以封装成map，实际上如果你在传入参数的时候，在MyBatis里面也是会把它封装成一个Map的，map的key就是参数名，所以这个时候collection属性值就是传入的List或array对象在自己封装的map里面的key.</li>
+</ul>
+<p>针对最后一条，我们来看一下官方说法：</p>
+<blockquote>
+<p>注意 你可以将一个 List 实例或者数组作为参数对象传给 MyBatis，当你这么做的时候，MyBatis 会自动将它包装在一个 Map 中并以名称为键。List 实例将会以“list”作为键，而数组实例的键将是“array”。</p>
+</blockquote>
+<p>所以，不管是多参数还是单参数的list,array类型，都可以封装为map进行传递。如果传递的是一个List，则mybatis会封装为一个list为key，list值为object的map，如果是array，则封装成一个array为key，array的值为object的map，如果自己封装呢，则colloection里放的是自己封装的map里的key值</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml">//mapper中我们要为这个方法传递的是一个容器,将容器中的元素一个一个的//拼接到xml的方法中就要使用这个forEach这个标签了public List<span class="hljs-tag">&lt;<span class="hljs-name">Entity</span>&gt;</span> queryById(List<span class="hljs-tag">&lt;<span class="hljs-name">String</span>&gt;</span> userids);<br>    //对应的xml中如下<br>    <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;queryById&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;BaseReslutMap&quot;</span> &gt;</span><br>    select * FROM entity<br>    where id in<br>    <span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;userids&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;userid&quot;</span> <span class="hljs-attr">index</span>=<span class="hljs-string">&quot;index&quot;</span> <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;(&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;,&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;)&quot;</span>&gt;</span><br>        #&#123;userid&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br> <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="concat模糊查询"><a href="#concat模糊查询" class="headerlink" title="concat模糊查询"></a><strong>concat模糊查询</strong></h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml">//比如说我们想要进行条件查询,但是几个条件不是每次都要使用,那么我们就可以//通过判断是否拼接到sql中       <span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;queryById&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;BascResultMap&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;entity&quot;</span>&gt;</span><br>    SELECT * from entity<br>        <span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;name!=null&quot;</span>&gt;</span><br>                name like concat(&#x27;%&#x27;,concat(#&#123;name&#125;,&#x27;%&#x27;))<br>            <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span>   <br>    	<span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="choose-when-otherwise-标签"><a href="#choose-when-otherwise-标签" class="headerlink" title="choose (when, otherwise)标签"></a><strong>choose (when, otherwise)标签</strong></h3><p>choose标签是按顺序判断其内部when标签中的test条件出否成立，如果有一个成立，则 choose 结束。当 choose 中所有 when 的条件都不满则时，则执行 otherwise 中的sql。类似于Java 的 switch 语句，choose 为 switch，when 为 case，otherwise 则为 default。</p>
+<p>例如下面例子，同样把所有可以限制的条件都写上，方面使用。choose会从上到下选择一个when标签的test为true的sql执行。安全考虑，我们使用where将choose包起来，放置关键字多于错误。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--  choose(判断参数) - 按顺序将实体类 User 第一个不为空的属性作为：where条件 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getUserList&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_user&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;com.yiibai.pojo.User&quot;</span>&gt;</span><br>      SELECT *<br>        FROM User u<br>        <span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">choose</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;username !=null &quot;</span>&gt;</span><br>                    u.username LIKE CONCAT(CONCAT(&#x27;%&#x27;, #&#123;username, jdbcType=VARCHAR&#125;),&#x27;%&#x27;)<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;sex != null and sex != &#x27;&#x27; &quot;</span>&gt;</span><br>                    AND u.sex = #&#123;sex, jdbcType=INTEGER&#125;<br>                &lt;/when &gt;<br>                <span class="hljs-tag">&lt;<span class="hljs-name">when</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;age != null &quot;</span>&gt;</span><br>                    AND u.age = #&#123;age, jdbcType=INTEGER&#125;<br>                <span class="hljs-tag">&lt;/<span class="hljs-name">when</span>&gt;</span><br>                <span class="hljs-tag">&lt;<span class="hljs-name">otherwise</span>&gt;</span>          <br>                <span class="hljs-tag">&lt;/<span class="hljs-name">otherwise</span>&gt;</span>          <br>            <span class="hljs-tag">&lt;/<span class="hljs-name">choose</span>&gt;</span>      <br>         <span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="selectKey-标签"><a href="#selectKey-标签" class="headerlink" title="selectKey 标签"></a><strong>selectKey 标签</strong></h3><p>在insert语句中，在Oracle经常使用序列、在MySQL中使用函数来自动生成插入表的主键，而且需要方法能返回这个生成主键。使用myBatis的selectKey标签可以实现这个效果。</p>
+<p>下面例子，使用mysql数据库自定义函数nextval(‘student’)，用来生成一个key，并把他设置到传入的实体类中的studentId属性上。所以在执行完此方法后，边可以通过这个实体类获取生成的key。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 插入学生 自动主键--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">insert</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;createStudentAutoKey&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;liming.student.manager.data.model.StudentEntity&quot;</span> <span class="hljs-attr">keyProperty</span>=<span class="hljs-string">&quot;studentId&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">selectKey</span> <span class="hljs-attr">keyProperty</span>=<span class="hljs-string">&quot;studentId&quot;</span> <span class="hljs-attr">resultType</span>=<span class="hljs-string">&quot;String&quot;</span> <span class="hljs-attr">order</span>=<span class="hljs-string">&quot;BEFORE&quot;</span>&gt;</span><br>        select nextval(&#x27;student&#x27;)<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">selectKey</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">insert</span>&gt;</span><br>    	INSERT INTO<br>M_STUDENT(STUDENT_ID,STUDENT_SEX,STUDENT_BIRTHDAY,STUDENT_PHOTO,CLASS_ID,PLACE_ID)   VALUES (#&#123;studentId&#125;,#&#123;studentName&#125;,#&#123;studentSex&#125;,#&#123;studentBirthday&#125;,#&#123;studentPhoto,javaType=byte[],jdbcType=BLOB,typeHandler=org.apache.ibatis.type.BlobTypeHandler&#125;,#&#123;classId&#125;,#&#123;placeId&#125;)<br><span class="hljs-tag">&lt;/<span class="hljs-name">insert</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>调用接口方法，和获取自动生成key</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-type">StudentEntity</span> <span class="hljs-variable">entity</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StudentEntity</span>();<br>entity.setStudentName(<span class="hljs-string">&quot;黎明你好&quot;</span>);<br>entity.setStudentSex(<span class="hljs-number">1</span>);<br>entity.setStudentBirthday(DateUtil.parse(<span class="hljs-string">&quot;1985-05-28&quot;</span>));<br>entity.setClassId(<span class="hljs-string">&quot;20000001&quot;</span>);<br>entity.setPlaceId(<span class="hljs-string">&quot;70000001&quot;</span>);<br><span class="hljs-built_in">this</span>.dynamicSqlMapper.createStudentAutoKey(entity);<br>System.out.println(<span class="hljs-string">&quot;新增学生ID: &quot;</span> + entity.getStudentId());<br></code></pre></td></tr></table></figure>
+
+<h3 id="if标签"><a href="#if标签" class="headerlink" title="if标签"></a><strong>if标签</strong></h3><p>if标签可用在许多类型的sql语句中，我们以查询为例。首先看一个很普通的查询：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 查询学生list，like姓名 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentListLikeName&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;StudentEntity&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;studentResultMap&quot;</span>&gt;</span><br>    SELECT * from M_STUDENT ms<br>    WHERE ms.STUDENT_NAME LIKE CONCAT(CONCAT(&#x27;%&#x27;, #&#123;studentName&#125;),&#x27;%&#x27;) <br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span>  <br></code></pre></td></tr></table></figure>
+
+<p>但是此时如果studentName为null，此语句很可能报错或查询结果为空。此时我们使用if动态sql语句先进行判断，如果值为null或等于空字符串，我们就不进行此条件的判断，增加灵活性。</p>
+<p>参数为实体类StudentEntity。将实体类中所有的属性均进行判断，如果不为空则执行判断条件。</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 2 if(判断参数) - 将实体类不为空的属性作为where条件 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentList&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_studentEntity&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;liming.student.manager.data.model.StudentEntity&quot;</span>&gt;</span><br>    SELECT ms.STUDENT_ID, ms.STUDENT_NAME, ms.STUDENT_SEX, ms.STUDENT_BIRTHDAY,      ms.STUDENT_PHOTO,ms.CLASS_ID,ms.PLACE_ID <br>    FROM M_STUDENT ms<br>    WHERE<br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentName !=null &quot;</span>&gt;</span><br>        ms.STUDENT_NAME LIKE CONCAT(CONCAT(&#x27;%&#x27;, #&#123;studentName, jdbcType=VARCHAR&#125;),&#x27;%&#x27;)<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentSex != null and studentSex != &#x27;&#x27; &quot;</span>&gt;</span><br>        AND ms.STUDENT_SEX = #&#123;studentSex, jdbcType=INTEGER&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentBirthday != null &quot;</span>&gt;</span><br>        AND ms.STUDENT_BIRTHDAY = #&#123;studentBirthday, jdbcType=DATE&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classId != null and classId!= &#x27;&#x27; &quot;</span>&gt;</span><br>        AND ms.CLASS_ID = #&#123;classId, jdbcType=VARCHAR&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classEntity != null and classEntity.classId !=null and classEntity.classId !=&#x27; &#x27; &quot;</span>&gt;</span><br>        AND ms.CLASS_ID = #&#123;classEntity.classId, jdbcType=VARCHAR&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeId != null and placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>        AND ms.PLACE_ID = #&#123;placeId, jdbcType=VARCHAR&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeEntity != null and placeEntity.placeId != null and placeEntity.placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>        AND ms.PLACE_ID = #&#123;placeEntity.placeId, jdbcType=VARCHAR&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentId != null and studentId != &#x27;&#x27; &quot;</span>&gt;</span>      <br>        AND ms.STUDENT_ID = #&#123;studentId, jdbcType=VARCHAR&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>使用时比较灵活， new一个这样的实体类，我们需要限制那个条件，只需要附上相应的值就会where这个条件，相反不去赋值就可以不在where中判断。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">select</span><span class="hljs-params">()</span> &#123;<br>    <span class="hljs-type">StudentEntity</span> <span class="hljs-variable">entity</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StudentEntity</span>();<br>    entity.setStudentName(<span class="hljs-string">&quot;&quot;</span>);<br>    entity.setStudentSex(<span class="hljs-number">1</span>);<br>    entity.setStudentBirthday(DateUtil.parse(<span class="hljs-string">&quot;2023-05-28&quot;</span>));                 <br>    entity.setClassId(<span class="hljs-string">&quot;20000001&quot;</span>);<br> 	entity.setPlaceId(<span class="hljs-string">&quot;70000001&quot;</span>);<br> 	List&lt;StudentEntity&gt; list = <span class="hljs-built_in">this</span>.dynamicSqlMapper.getStudentList(entity);<br>    <span class="hljs-keyword">for</span> (StudentEntity e : list) &#123;<br>    	 System.out.println(e.toString());<br>	 &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="if-where-的条件判断"><a href="#if-where-的条件判断" class="headerlink" title="if + where 的条件判断"></a><strong>if + where 的条件判断</strong></h3><p>当where中的条件使用的if标签较多时，这样的组合可能会导致错误。我们以在3.1中的查询语句为例子，当java代码按如下方法调用时：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">select</span><span class="hljs-params">()</span> &#123;<br>	<span class="hljs-type">StudentEntity</span> <span class="hljs-variable">entity</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">StudentEntity</span>();<br>    entity.setStudentName(<span class="hljs-literal">null</span>);<br>    entity.setStudentSex(<span class="hljs-number">1</span>);<br>    List&lt;StudentEntity&gt; list = <span class="hljs-built_in">this</span>.dynamicSqlMapper.getStudentList(entity);<br>    <span class="hljs-keyword">for</span> (StudentEntity e : list) &#123;<br>        System.out.println(e.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果上面例子，参数studentName为null，将不会进行STUDENT_NAME列的判断，则会直接导“WHERE AND”关键字多余的错误SQL。</p>
+<p>这时我们可以使用where动态语句来解决。这个“where”标签会知道如果它包含的标签中有返回值的话，它就插入一个‘where’。此外，如果标签返回的内容是以AND 或OR 开头的，则它会剔除掉。</p>
+<p>上面例子修改为：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 3 select - where/if(判断参数) - 将实体类不为空的属性作为where条件 --&gt;</span> <br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentList&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_studentEntity&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;wtl.student.manager.data.model.StudentEntity&quot;</span>&gt;</span><br>    SELECT ms.STUDENT_ID,ms.STUDENT_NAME,ms.STUDENT_SEX,ms.STUDENT_BIRTHDAY,    ms.STUDENT_PHOTO,ms.CLASS_ID,ms.PLACE_ID<br>    FROM M_STUDENT ms<br>    <span class="hljs-tag">&lt;<span class="hljs-name">where</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentName !=null &quot;</span>&gt;</span><br>            ms.STUDENT_NAME LIKE CONCAT(CONCAT(&#x27;%&#x27;, #&#123;studentName, jdbcType=VARCHAR&#125;),&#x27;%&#x27;)<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentSex != null and studentSex != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.STUDENT_SEX = #&#123;studentSex, jdbcType=INTEGER&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentBirthday != null &quot;</span>&gt;</span><br>            AND ms.STUDENT_BIRTHDAY = #&#123;studentBirthday, jdbcType=DATE&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classId != null and classId!= &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.CLASS_ID = #&#123;classId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classEntity != null and classEntity.classId !=null and classEntity.classId !=&#x27; &#x27; &quot;</span>&gt;</span><br>            AND ms.CLASS_ID = #&#123;classEntity.classId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeId != null and placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.PLACE_ID = #&#123;placeId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeEntity != null and placeEntity.placeId != null and placeEntity.placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.PLACE_ID = #&#123;placeEntity.placeId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentId != null and studentId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.STUDENT_ID = #&#123;studentId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">where</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="if-set实现修改语句"><a href="#if-set实现修改语句" class="headerlink" title="if + set实现修改语句"></a><strong>if + set实现修改语句</strong></h3><p>当update语句中没有使用if标签时，如果有一个参数为null，都会导致错误。</p>
+<p>当在update语句中使用if标签时，如果前面的if没有执行，则或导致逗号多余错误。使用set标签可以将动态的配置SET 关键字，和剔除追加到条件末尾的任何不相关的逗号。使用if+set标签修改后，如果某项为null则不进行更新，而是保持数据库原值。</p>
+<p>如下示例：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 4 if/set(判断参数) - 将实体类不为空的属性更新 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">update</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;updateStudent&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;wtl.student.manager.data.model.StudentEntity&quot;</span>&gt;</span><br>    UPDATE M_STUDENT ms<br>    <span class="hljs-tag">&lt;<span class="hljs-name">set</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentName != null and studentName != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.STUDENT_NAME = #&#123;studentName&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentSex != null and studentSex != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.STUDENT_SEX = #&#123;studentSex&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentBirthday != null &quot;</span>&gt;</span><br>            ms.STUDENT_BIRTHDAY = #&#123;studentBirthday&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentPhoto != null &quot;</span>&gt;</span><br>            ms.STUDENT_PHOTO = #&#123;studentPhoto, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classId != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.CLASS_ID = #&#123;classId&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.PLACE_ID = #&#123;placeId&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">set</span>&gt;</span><br>    WHERE ms.STUDENT_ID = #&#123;studentId&#125;;<br><span class="hljs-tag">&lt;/<span class="hljs-name">update</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="if-trim代替where-set标签"><a href="#if-trim代替where-set标签" class="headerlink" title="if + trim代替where/set标签"></a><strong>if + trim代替where/set标签</strong></h3><p>trim是更灵活的去处多余关键字的标签，他可以实践where和set的效果。</p>
+<p><strong>trim代替where</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 5.1 if/trim代替where(判断参数) -将实体类不为空的属性作为where条件--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentList&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_studentEntity&quot;</span>&gt;</span><br>    SELECT ms.STUDENT_ID,ms.STUDENT_NAME,ms.STUDENT_SEX,ms.STUDENT_BIRTHDAY,       ms.STUDENT_PHOTO,ms.CLASS_ID,ms.PLACE_ID<br>    FROM M_STUDENT ms<br>    <span class="hljs-tag">&lt;<span class="hljs-name">trim</span> <span class="hljs-attr">prefix</span>=<span class="hljs-string">&quot;WHERE&quot;</span> <span class="hljs-attr">prefixOverrides</span>=<span class="hljs-string">&quot;AND|OR&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentName !=null &quot;</span>&gt;</span><br>            ms.STUDENT_NAME LIKE CONCAT(CONCAT(&#x27;%&#x27;, #&#123;studentName, jdbcType=VARCHAR&#125;),&#x27;%&#x27;)<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentSex != null and studentSex != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.STUDENT_SEX = #&#123;studentSex, jdbcType=INTEGER&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentBirthday != null &quot;</span>&gt;</span><br>            AND ms.STUDENT_BIRTHDAY = #&#123;studentBirthday, jdbcType=DATE&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classId != null and classId!= &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.CLASS_ID = #&#123;classId, jdbcType=VARCHAR&#125;  <br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classEntity != null and classEntity.classId !=null and classEntity.classId !=&#x27; &#x27; &quot;</span>&gt;</span><br>            AND ms.CLASS_ID = #&#123;classEntity.classId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeId != null and placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.PLACE_ID = #&#123;placeId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeEntity != null and placeEntity.placeId != null and placeEntity.placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.PLACE_ID = #&#123;placeEntity.placeId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentId != null and studentId != &#x27;&#x27; &quot;</span>&gt;</span><br>            AND ms.STUDENT_ID = #&#123;studentId, jdbcType=VARCHAR&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">trim</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>trim代替set</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 5.2 if/trim代替set(判断参数) - 将实体类不为空的属性更新 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">update</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;updateStudent&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;wtl.student.manager.data.model.StudentEntity&quot;</span>&gt;</span><br>    UPDATE M_STUDENT ms<br>    <span class="hljs-tag">&lt;<span class="hljs-name">trim</span> <span class="hljs-attr">prefix</span>=<span class="hljs-string">&quot;SET&quot;</span> <span class="hljs-attr">suffixOverrides</span>=<span class="hljs-string">&quot;,&quot;</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentName != null and studentName != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.STUDENT_NAME = #&#123;studentName&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentSex != null and studentSex != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.STUDENT_SEX = #&#123;studentSex&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span>          <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentBirthday != null &quot;</span>&gt;</span><br>        	ms.STUDENT_BIRTHDAY = #&#123;studentBirthday&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;studentPhoto != null &quot;</span>&gt;</span><br>            ms.STUDENT_PHOTO = #&#123;studentPhoto, javaType=byte[], jdbcType=BLOB, typeHandler=org.apache.ibatis.type.BlobTypeHandler&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;classId != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.CLASS_ID = #&#123;classId&#125;,<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">if</span> <span class="hljs-attr">test</span>=<span class="hljs-string">&quot;placeId != &#x27;&#x27; &quot;</span>&gt;</span><br>            ms.PLACE_ID = #&#123;placeId&#125;<br>        <span class="hljs-tag">&lt;/<span class="hljs-name">if</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">trim</span>&gt;</span><br>    WHERE ms.STUDENT_ID = #&#123;studentId&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">update</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="foreach"><a href="#foreach" class="headerlink" title="foreach"></a><strong>foreach</strong></h3><p>对于动态SQL 非常必须的，主是要迭代一个集合，通常是用于IN 条件。List 实例将使用“list”做为键，数组实例以“array” 做为键。</p>
+<p>foreach元素是非常强大的，它允许你指定一个集合，声明集合项和索引变量，它们可以用在元素体内。它也允许你指定开放和关闭的字符串，在迭代之间放置分隔符。这个元素是很智能的，它不会偶然地附加多余的分隔符。</p>
+<blockquote>
+<p>注意：你可以传递一个List实例或者数组作为参数对象传给MyBatis。当你这么做的时候，MyBatis会自动将它包装在一个Map中，用名称在作为键。List实例将会以“list”作为键，而数组实例将会以“array”作为键。</p>
+</blockquote>
+<p>这个部分是对关于XML配置文件和XML映射文件的而讨论的。下一部分将详细讨论Java API，所以你可以得到你已经创建的最有效的映射。</p>
+<p><strong>1.参数为array示例的写法</strong></p>
+<p>接口的方法声明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;StudentEntity&gt; <span class="hljs-title function_">getStudentListByClassIds_foreach_array</span><span class="hljs-params">(String[] classIds)</span>;<br></code></pre></td></tr></table></figure>
+
+<p>动态SQL语句：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 7.1 foreach(循环array参数) - 作为where中in的条件 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentListByClassIds&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_studentEntity&quot;</span>&gt;</span><br>    SELECT ms.STUDENT_ID,ms.STUDENT_NAME,ms.STUDENT_SEX,ms.STUDENT_BIRTHDAY,     ms.STUDENT_PHOTO,ms.CLASS_ID,ms.PLACE_ID<br>    FROM M_STUDENT ms<br>    WHERE ms.CLASS_ID IN<br>    <span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;array&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;classIds&quot;</span> <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;(&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;,&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;)&quot;</span>&gt;</span><br>        #&#123;classIds&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>测试代码，查询学生中，在20000001、20000002这两个班级的学生：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span>  <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectList</span><span class="hljs-params">()</span> &#123;<br>    String[] classIds = &#123; <span class="hljs-string">&quot;20000001&quot;</span>, <span class="hljs-string">&quot;20000002&quot;</span> &#125;;<br>    List&lt;StudentEntity&gt; list = <span class="hljs-built_in">this</span>.dynamicSqlMapper.getStudentListByClassIds(classIds);<br>    <span class="hljs-keyword">for</span> (StudentEntity e : list) &#123;<br>        System.out.println(e.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><strong>2.参数为list示例的写法</strong></p>
+<p>接口的方法声明：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">public</span> List&lt;StudentEntity&gt; <span class="hljs-title function_">getStudentListByClassIds</span><span class="hljs-params">(List&lt;String&gt; classIdList)</span>;<br></code></pre></td></tr></table></figure>
+
+<p>动态SQL语句：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!-- 7.2 foreach(循环List&lt;String&gt;参数) - 作为where中in的条件 --&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;getStudentListByClassIds&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;resultMap_studentEntity&quot;</span>&gt;</span><br>    SELECT ms.STUDENT_ID,ms.STUDENT_NAME,ms.STUDENT_SEX,ms.STUDENT_BIRTHDAY,     ms.STUDENT_PHOTO,ms.CLASS_ID,ms.PLACE_ID<br>    FROM M_STUDENT ms<br>    WHERE ms.CLASS_ID IN<br>    <span class="hljs-tag">&lt;<span class="hljs-name">foreach</span> <span class="hljs-attr">collection</span>=<span class="hljs-string">&quot;list&quot;</span> <span class="hljs-attr">item</span>=<span class="hljs-string">&quot;classIdList&quot;</span>  <span class="hljs-attr">open</span>=<span class="hljs-string">&quot;(&quot;</span> <span class="hljs-attr">separator</span>=<span class="hljs-string">&quot;,&quot;</span> <span class="hljs-attr">close</span>=<span class="hljs-string">&quot;)&quot;</span>&gt;</span>          #&#123;classIdList&#125;<br>    <span class="hljs-tag">&lt;/<span class="hljs-name">foreach</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<p>测试代码，查询学生中，在20000001、20000002这两个班级的学生：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-meta">@Test</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">selectList</span><span class="hljs-params">()</span> &#123;<br>    ArrayList&lt;String&gt; classIdList = <span class="hljs-keyword">new</span> <span class="hljs-title class_">ArrayList</span>&lt;String&gt;();<br>    classIdList.add(<span class="hljs-string">&quot;20000001&quot;</span>);<br>    classIdList.add(<span class="hljs-string">&quot;20000002&quot;</span>);<br>    List&lt;StudentEntity&gt; list = <span class="hljs-built_in">this</span>.dynamicSqlMapper.getStudentListByClassIds(classIdList);<br>    <span class="hljs-keyword">for</span> (StudentEntity e : list) &#123;<br>        System.out.println(e.toString());<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>sql片段标签<code>&lt;sql&gt;</code>：通过该标签可定义能复用的sql语句片段，在执行sql语句标签中直接引用即可。这样既可以提高编码效率，还能有效简化代码，提高可读性</p>
+<p>需要配置的属性：id=”” &gt;&gt;&gt;表示需要改sql语句片段的唯一标识</p>
+<p>引用：通过<code>&lt;include refid=&quot;&quot; /&gt;</code>标签引用，refid=”” 中的值指向需要引用的<code>&lt;sql&gt;</code>中的id=“”属性</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-comment">&lt;!--定义sql片段--&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">sql</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;orderAndItem&quot;</span>&gt;</span>   t1.order_id,t1.cid,t1.address,t1.create_date,t1.item,t2.item,t2.product_id,t2.count<br><span class="hljs-tag">&lt;/<span class="hljs-name">sql</span>&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">select</span> <span class="hljs-attr">id</span>=<span class="hljs-string">&quot;findOrderAndItemsByOid&quot;</span> <span class="hljs-attr">parameterType</span>=<span class="hljs-string">&quot;java.lang.String&quot;</span> <span class="hljs-attr">resultMap</span>=<span class="hljs-string">&quot;BaseResultMap&quot;</span>&gt;</span><br>    select  <span class="hljs-comment">&lt;!--引用sql片段--&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">include</span> <span class="hljs-attr">refid</span>=<span class="hljs-string">&quot;orderAndItem&quot;</span> /&gt;</span><br>    from table1 t1<br>    join table2 t2 on t1.item = t2.item<br>    where t1.order_id = #&#123;orderId&#125;<br><span class="hljs-tag">&lt;/<span class="hljs-name">select</span>&gt;</span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/mybatis/" class="category-chain-item">&lt;mybatis</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/mybatis/">#mybatis</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>mybatis</div>
+      <div>http://example.com/2023/05/27/mybatis/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Along</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年5月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/05/20/%E6%8E%A5%E5%8F%A3%E4%BC%98%E5%8C%96/" title="接口优化">
+                        <span class="hidden-mobile">接口优化</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"yfyxCH6385KLuweSoovXwOlm-gzGzoHsz","appKey":"mJnFLmqSoVyX0Gsp3K2ghPo8","path":"window.location.pathname","placeholder":"欢迎添加评论","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
