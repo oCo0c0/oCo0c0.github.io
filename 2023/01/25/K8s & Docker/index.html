@@ -1,0 +1,988 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="Along">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="K8s &amp; Dockerkubectl 概述 kubectl 是用于运行 Kubernetes 集群命令的管理工具  kubectl 与 Docker 命令关系docker run 运行nginx   使用 docker  12$ docker run -d --restart&#x3D;always -e DOMAIN&#x3D;cluster --name nginx-app -p 80:80 nginx">
+<meta property="og:type" content="article">
+<meta property="og:title" content="K8s &amp; Docker">
+<meta property="og:url" content="http://example.com/2023/01/25/K8s%20&%20Docker/index.html">
+<meta property="og:site_name" content="Along">
+<meta property="og:description" content="K8s &amp; Dockerkubectl 概述 kubectl 是用于运行 Kubernetes 集群命令的管理工具  kubectl 与 Docker 命令关系docker run 运行nginx   使用 docker  12$ docker run -d --restart&#x3D;always -e DOMAIN&#x3D;cluster --name nginx-app -p 80:80 nginx">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-24T16:40:10.000Z">
+<meta property="article:modified_time" content="2024-03-18T05:46:01.561Z">
+<meta property="article:author" content="Along">
+<meta property="article:tag" content="服务器">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>K8s &amp; Docker - Along</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.4","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"yfyxCH6385KLuweSoovXwOlm-gzGzoHsz","app_key":"mJnFLmqSoVyX0Gsp3K2ghPo8","server_url":"https://yfyxch63.lc-cn-n1-shared.com","path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+  
+
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>DK-mylucky</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/beijing.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="K8s &amp; Docker"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-01-25 00:40" pubdate>
+          2023年1月25日 凌晨
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.3k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          53 分钟
+        
+      </span>
+    
+
+    
+    
+      
+        <span id="leancloud-page-views-container" class="post-meta" style="display: none">
+          <i class="iconfont icon-eye" aria-hidden="true"></i>
+          <span id="leancloud-page-views"></span> 次
+        </span>
+        
+      
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">K8s &amp; Docker</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="K8s-amp-Docker"><a href="#K8s-amp-Docker" class="headerlink" title="K8s &amp; Docker"></a>K8s &amp; Docker</h1><h2 id="kubectl-概述"><a href="#kubectl-概述" class="headerlink" title="kubectl 概述"></a><strong>kubectl 概述</strong></h2><blockquote>
+<p>kubectl 是用于运行 Kubernetes 集群命令的管理工具</p>
+</blockquote>
+<h2 id="kubectl-与-Docker-命令关系"><a href="#kubectl-与-Docker-命令关系" class="headerlink" title="kubectl 与 Docker 命令关系"></a><strong>kubectl 与 Docker 命令关系</strong></h2><h3 id="docker-run"><a href="#docker-run" class="headerlink" title="docker run"></a><strong>docker run</strong></h3><blockquote>
+<p>运行nginx</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker run -d --restart=always -e DOMAIN=cluster --name nginx-app -p 80:80 nginx<br>a9e<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p><strong>docker ps</strong></p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>CONTAINER ID</th>
+<th>IMAGE</th>
+<th>COMMAND</th>
+<th>CREATED</th>
+<th>STATUS</th>
+<th>PORTS</th>
+<th>NAMES</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a9ec34d98787</td>
+<td>nginx</td>
+<td>“nginx -g ‘daemon of</td>
+<td>2 seconds ago</td>
+<td>Up 2 seconds</td>
+<td>0.0.0.0:80-&gt;80/tcp,443/tcp</td>
+<td>nginx-app</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># start the pod running nginx</span><br>$ kubectl run --image=nginx nginx-app --port=80 --<span class="hljs-built_in">env</span>=<span class="hljs-string">&quot;DOMAIN=cluster&quot;</span> deployment <span class="hljs-string">&quot;nginx-app&quot;</span> created<br></code></pre></td></tr></table></figure>
+
+<p>kubectl run 在 Kubernetes 集群&gt; = v1.2 上将创建名是 “nginx-app”的 Deployment。如果 运行的是低的版本，则会创建一个 replication controllers，如果要了解低版本方式，请使 用–generator=run/v1，将会创建 replication controllers。查看 kubectl run 更多详情。现 在，我们可以使用上面创建的 Deployment 来暴露一个新的服务</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#expose a port through with a service</span><br>$ kubectl expose deployment nginx-app --port=80 --name=nginx-http service <span class="hljs-string">&quot;nginx-http&quot;</span> exposed<br></code></pre></td></tr></table></figure>
+
+<p>使用 kubectl 创建一个 Deployment，他能保证任何情况下有 N 个运行 nginx 的 pods（其 中 N 是默认定义声明的副本数，默认为 1 个）。它同时会创建一个 Services，使用选择器 匹配 Deployment’s selector。</p>
+<p>默认情况下镜像在后台运行，类似于 docker run -d …在前台运行，使用：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl run [-i] [--<span class="hljs-built_in">tty</span>] --attach &lt;name&gt; --image=&lt;image&gt;<br>要删除 Deployment （及其 pod）<br>kubectl delete deployment &lt;name&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-ps"><a href="#docker-ps" class="headerlink" title="docker ps"></a><strong>docker ps</strong></h3><blockquote>
+<p>列出当前运行的内容</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker ps<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>CONTAINER ID</th>
+<th>IMAGE</th>
+<th>COMMAND</th>
+<th>CREATED</th>
+<th>STATUS</th>
+<th>PORTS</th>
+<th>NAMES</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>a9ec34d98787</td>
+<td>nginx</td>
+<td>“nginx -g ‘daemon of</td>
+<td>About an hour ago</td>
+<td>Up About an hour</td>
+<td>0.0.0.0:80-&gt;80/tcp,443/tcp</td>
+<td>nginx-app</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>使用kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl get po<br></code></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>NAME</th>
+<th>READY</th>
+<th>STATUS</th>
+<th>RESTARTS</th>
+<th>AGE</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>nginx-app</td>
+<td>1/1</td>
+<td>Running</td>
+<td>0</td>
+<td>1h</td>
+</tr>
+</tbody></table>
+<h3 id="docker-attach"><a href="#docker-attach" class="headerlink" title="docker attach"></a>docker attach</h3><blockquote>
+<p>连接已经运行在容器中的进程</p>
+</blockquote>
+<ul>
+<li><strong>使用docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker attach CONTAINER ID<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl attach -it NAME<br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-exec"><a href="#docker-exec" class="headerlink" title="docker exec"></a><strong>docker exec</strong></h3><blockquote>
+<p>何在容器中执行命令</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker <span class="hljs-built_in">exec</span> CONTAINER ID <span class="hljs-built_in">cat</span> /etc/hostname CONTAINER ID<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl <span class="hljs-built_in">exec</span> NAME -- <span class="hljs-built_in">cat</span> /etc/hostname NAME<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>交互式命令</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker <span class="hljs-built_in">exec</span> -ti CONTAINER ID /bin/sh<br><span class="hljs-comment"># exit</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl <span class="hljs-built_in">exec</span> -ti NAME -- /bin/sh<br><span class="hljs-comment"># exit</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-logs"><a href="#docker-logs" class="headerlink" title="docker logs"></a><strong>docker logs</strong></h3><blockquote>
+<p>查看进程打印 stdout / stderr</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker logs -f CONTAINER ID<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl logs -f NAME<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>pods和containers之间的微小差异</p>
+</blockquote>
+<p>默认情况下，如果进程退出，pods是不会终止，相反，它会重新启动该进程。这与 docker run 配置–restart=always 选项有一个主要区别。要查看以前在 Kubernetes 中运行的输出，请运行</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl logs --previous NAME<br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-stop-和-docker-rm"><a href="#docker-stop-和-docker-rm" class="headerlink" title="docker stop 和 docker rm"></a><strong>docker stop 和 docker rm</strong></h3><blockquote>
+<p>停止和删除正在运行的进程</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker stop CONTAINER ID<br>$ docker <span class="hljs-built_in">rm</span> CONTAINER ID<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl get deployment NAME<br>$ kubectl get po -l run=NAME<br>$ kubectl delete deployment NAME<br>$ kubectl get po -l run=NAME<br></code></pre></td></tr></table></figure>
+
+<p>注意，不要直接删除 pod，使用 kubectl 请删除拥有该 pod 的 Deployment。如果直接删除 pod，则 Deployment将会重新创建该pod。</p>
+<h3 id="docker-version"><a href="#docker-version" class="headerlink" title="docker version"></a><strong>docker version</strong></h3><blockquote>
+<p>获取客户端和服务器的版本号</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker version<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl version<br></code></pre></td></tr></table></figure>
+
+<h3 id="docker-info"><a href="#docker-info" class="headerlink" title="docker info"></a><strong>docker info</strong></h3><blockquote>
+<p>获取有关配置和环境信息</p>
+</blockquote>
+<ul>
+<li><strong>使用 docker</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ docker info<br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>使用 kubectl</strong></li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl cluster-info<br></code></pre></td></tr></table></figure>
+
+<h2 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a><strong>常用命令</strong></h2><h3 id="1、查看集群状态"><a href="#1、查看集群状态" class="headerlink" title="1、查看集群状态"></a><strong>1、查看集群状态</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">查看客户端及服务端程序版本信息<br>kubectl version --short=<span class="hljs-literal">true</span><br>查看集群信息<br>kubectl cluster-info<br></code></pre></td></tr></table></figure>
+
+<h3 id="2、创建资源对象"><a href="#2、创建资源对象" class="headerlink" title="2、创建资源对象"></a><strong>2、创建资源对象</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl run name --image=(镜像名) --replicas=(备份数) --port=(容器要暴露的端口) -labels=(设定自定义标签)<br>陈述式对象配置管理方式<br>kubectl create -f **.yaml<br>声明式对象配置管理方式（也适用于更新等）<br>kubectl apply -f **.yaml<br></code></pre></td></tr></table></figure>
+
+<h3 id="3、查看资源对象"><a href="#3、查看资源对象" class="headerlink" title="3、查看资源对象"></a><strong>3、查看资源对象</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get namespace 查看命名空间<br>kubectl get pods,services -o wide (-o 输出格式 wide 表示 plain-text)<br>kubectl get pod -l <span class="hljs-string">&quot;key=value,key=value&quot;</span> -n kube-system (-l 标签选择器(多个的话是与逻辑)，-n 指定命名空间，不指定默认 default)<br>kubectl get pod -l <span class="hljs-string">&quot;key1 in (val1,val2),!key2&quot;</span> -L key (-l 基于集合的标签选择器, -L 查询结果显示标签) 注意：为了避免和 shell 解释器解析!,必须要为此类表达式使用单引号<br>kubectl get pod -w(-w 监视资源变动信息)<br></code></pre></td></tr></table></figure>
+
+<h3 id="4、打印容器中日志信息"><a href="#4、打印容器中日志信息" class="headerlink" title="4、打印容器中日志信息"></a><strong>4、打印容器中日志信息</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl logs name -f -c container_name -n kube-system (-f 持续监控，-c 如果 pod 中只有一个容器不用加)<br></code></pre></td></tr></table></figure>
+
+<h3 id="5、在容器中执行命令"><a href="#5、在容器中执行命令" class="headerlink" title="5、在容器中执行命令"></a>5、在容器中执行命令</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl <span class="hljs-built_in">exec</span> name -c container_name -n kube-system -- 具体命令<br>进入容器的交互式 shell<br>kubectl <span class="hljs-built_in">exec</span> -it pod_name /bin/sh<br></code></pre></td></tr></table></figure>
+
+<h3 id="6、删除资源对象"><a href="#6、删除资源对象" class="headerlink" title="6、删除资源对象"></a><strong>6、删除资源对象</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">删除指定资源对象<br>kubectl delete [pods/services/deployments/...] name<br>删 除kube-system 下指定标签的资源对象<br>kubectl delete [pods/services/deployments/...] -l key=value -n kube-system<br>删除 kube-system 下所有资源对象<br>kubectl delete [pods/services/deployments/...] --all -n kube-system<br>强制删除 Terminating 的资源对象<br>kubectl delete [pods/services/deployments/...] source_name --force --grace-period=0 -n kube-system<br>kubectl delete -f xx.yaml<br>kubectl apply -f xx.yaml --prune -l &lt;labels&gt;(一般不用这种方式删除)<br>kubectl delete rs rs_name --cascade=fale(默认删除控制器会同时删除其管控的所有 Pod对象，加上 cascade=<span class="hljs-literal">false</span> 就只删除 rs)<br></code></pre></td></tr></table></figure>
+
+<h3 id="7、更新资源对象"><a href="#7、更新资源对象" class="headerlink" title="7、更新资源对象"></a><strong>7、更新资源对象</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl replace -f xx.yaml --force(--force 如果需要基于此前的配置文件进行替换，需要加上 force)<br></code></pre></td></tr></table></figure>
+
+<h3 id="8、将服务暴露出去-创建-Service"><a href="#8、将服务暴露出去-创建-Service" class="headerlink" title="8、将服务暴露出去(创建 Service)"></a><strong>8、将服务暴露出去(创建 Service)</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl expose deployments/deployment_name --<span class="hljs-built_in">type</span>=<span class="hljs-string">&quot;NodePort&quot;</span> --port=(要暴露的容器端口) --name=(Service 对象名字)<br></code></pre></td></tr></table></figure>
+
+<h3 id="9、扩容和缩容"><a href="#9、扩容和缩容" class="headerlink" title="9、扩容和缩容"></a><strong>9、扩容和缩容</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl scale deployment/deployment_name --replicas=N<br>kubectl scale deployment/deployment_name --replicas=N --current-replicas=M <br>只有当前副本数等于 M 时才会执行扩容或者缩容<br></code></pre></td></tr></table></figure>
+
+<h3 id="10、查看-API-版本"><a href="#10、查看-API-版本" class="headerlink" title="10、查看 API 版本"></a><strong>10、查看 API 版本</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl api-versions<br></code></pre></td></tr></table></figure>
+
+<h3 id="11、在本地主机上为-API-Server-启动一个代理网关"><a href="#11、在本地主机上为-API-Server-启动一个代理网关" class="headerlink" title="11、在本地主机上为 API Server 启动一个代理网关"></a><strong>11、在本地主机上为 API Server 启动一个代理网关</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl proxy --port=8080<br>之后就可以通过 curl 来对此套字节发起访问请求<br>curl localhost:8080/api/v1/namespaces/ | jq .items[].metadata.name<br>(jq 可以对 json 进行过滤)<br></code></pre></td></tr></table></figure>
+
+<h3 id="12、当定义资源配置文件时，不知道怎么定义的时候，可以查看某类型资源的配置字段解释"><a href="#12、当定义资源配置文件时，不知道怎么定义的时候，可以查看某类型资源的配置字段解释" class="headerlink" title="12、当定义资源配置文件时，不知道怎么定义的时候，可以查看某类型资源的配置字段解释"></a><strong>12、当定义资源配置文件时，不知道怎么定义的时候，可以查看某类型资源的配置字段解释</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(二级对象可用类似于 pods.spec 这种方式查看)<br>kubectl explain pods/deployments/...<br></code></pre></td></tr></table></figure>
+
+<h3 id="13、查看某资源对象的配置文件"><a href="#13、查看某资源对象的配置文件" class="headerlink" title="13、查看某资源对象的配置文件"></a><strong>13、查看某资源对象的配置文件</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">(--<span class="hljs-built_in">export</span> 表示省略由系统生成的信息) 后面加 &gt; file.yaml 就可以快速生成一个配置文件了<br>kubectl get source_type source_name -o yaml --<span class="hljs-built_in">export</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="14、标签管理相关命令"><a href="#14、标签管理相关命令" class="headerlink" title="14、标签管理相关命令"></a><strong>14、标签管理相关命令</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">添 加 标 签 , 如 果 是 修 改 的 话 需 要 后 面 添 加 -overwrite<br>kubectl label pods/pod_name key=value<br>给 工 作 节 点 添 加 标 签 ， 后 续 可 以 使 用<br>kubectl label nodes node_name key=value<br>来指定 pod 被调度到指定的工作节点上运行<br>nodeSelector<br></code></pre></td></tr></table></figure>
+
+<h3 id="15、注解管理相关命令"><a href="#15、注解管理相关命令" class="headerlink" title="15、注解管理相关命令"></a><strong>15、注解管理相关命令</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl annotate pods pod_name key=value<br></code></pre></td></tr></table></figure>
+
+<h3 id="16、patch-修改-Deployment-控制器进行控制器升级"><a href="#16、patch-修改-Deployment-控制器进行控制器升级" class="headerlink" title="16、patch 修改 Deployment 控制器进行控制器升级"></a><strong>16、patch 修改 Deployment 控制器进行控制器升级</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash">(-p以补丁形式更新补丁形式默认是 json)<br>kubectl patch deployment deployment-demo -p <span class="hljs-string">&#x27;&#123;&quot;spec&quot;: &#123;&quot;minReadySeconds&quot;: 5&#125;&#125;&#x27;</span><br>修改depolyment 中的镜像文件<br>kubectl <span class="hljs-built_in">set</span> image deployments deployment-demo myapp=ikubernetes/myapp:v2 <br>打印滚动更新过程中的状态信息<br>kubectl rollout status deployment deployment-demo<br>监控 deployment 的更新过程<br>kubectl get deployments deployment-demo --watch<br>暂停更新<br>kubectl kubectl rollout pause deployments deployment-demo<br>继续更新<br>kubectl rollout resume deployments deployment-demo<br>查看历史版本(能查到具体的历史需要在 apply 的时候加上--record 参数)<br>kubectl rollout <span class="hljs-built_in">history</span> deployments deployment-demo<br>回滚到指定版本，不加--to-version 则回滚到上一个版本<br>kubectl rollout undo deployments deployment-demo --to-revision=2 <br></code></pre></td></tr></table></figure>
+
+<h3 id="17、查看所有-pod-列表-n-后跟-namespace-查看指定的命名空间"><a href="#17、查看所有-pod-列表-n-后跟-namespace-查看指定的命名空间" class="headerlink" title="17、查看所有 pod 列表, -n 后跟 namespace, 查看指定的命名空间"></a><strong>17、查看所有 pod 列表, -n 后跟 namespace, 查看指定的命名空间</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get pod<br>kubectl get pod -n kubekubectl get pod -o wide<br></code></pre></td></tr></table></figure>
+
+<h3 id="18、查看-RC-和-service-列表，-o-wide-查看详细信息"><a href="#18、查看-RC-和-service-列表，-o-wide-查看详细信息" class="headerlink" title="18、查看 RC 和 service 列表， -o wide 查看详细信息"></a><strong>18、查看 RC 和 service 列表， -o wide 查看详细信息</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get rc,svc<br>kubectl get pod,svc -o wide<br>kubectl get pod &lt;pod-name&gt; -o yaml<br></code></pre></td></tr></table></figure>
+
+<h3 id="19、显示-Node-的详细信息"><a href="#19、显示-Node-的详细信息" class="headerlink" title="19、显示 Node 的详细信息"></a><strong>19、显示 Node 的详细信息</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl describe node 192.168.0.212<br></code></pre></td></tr></table></figure>
+
+<h3 id="20、显示-Pod-的详细信息-特别是查看-pod-无法创建的时候的日志"><a href="#20、显示-Pod-的详细信息-特别是查看-pod-无法创建的时候的日志" class="headerlink" title="20、显示 Pod 的详细信息, 特别是查看 pod 无法创建的时候的日志"></a><strong>20、显示 Pod 的详细信息, 特别是查看 pod 无法创建的时候的日志</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl describe pod &lt;pod-name&gt;<br>eg: kubectl describe pod redis-master-tqds9<br></code></pre></td></tr></table></figure>
+
+<h3 id="21、根据-yaml-创建资源-apply-可以重复执行，create不行"><a href="#21、根据-yaml-创建资源-apply-可以重复执行，create不行" class="headerlink" title="21、根据 yaml 创建资源, apply 可以重复执行，create不行"></a><strong>21、根据 yaml 创建资源, apply 可以重复执行，create不行</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl create -f pod.yaml<br>kubectl apply -f pod.yaml<br></code></pre></td></tr></table></figure>
+
+<h3 id="22、基于-pod-yaml-定义的名称删除-pod"><a href="#22、基于-pod-yaml-定义的名称删除-pod" class="headerlink" title="22、基于 pod.yaml 定义的名称删除 pod"></a><strong>22、基于 pod.yaml 定义的名称删除 pod</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl delete -f pod.yaml<br></code></pre></td></tr></table></figure>
+
+<h3 id="23、删除所有包含某个-label-的-pod-和-service"><a href="#23、删除所有包含某个-label-的-pod-和-service" class="headerlink" title="23、删除所有包含某个 label 的 pod 和 service"></a><strong>23、删除所有包含某个 label 的 pod 和 service</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl delete pod,svc -l name=&lt;label-name&gt;<br></code></pre></td></tr></table></figure>
+
+<h3 id="24、删除所有-Pod"><a href="#24、删除所有-Pod" class="headerlink" title="24、删除所有 Pod"></a><strong>24、删除所有 Pod</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl delete pod --all<br></code></pre></td></tr></table></figure>
+
+<h3 id="25、查看-endpoint-列表"><a href="#25、查看-endpoint-列表" class="headerlink" title="25、查看 endpoint 列表"></a><strong>25、查看 endpoint 列表</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get endpoints<br></code></pre></td></tr></table></figure>
+
+<h3 id="26、执行-pod-的-date-命令"><a href="#26、执行-pod-的-date-命令" class="headerlink" title="26、执行 pod 的 date 命令"></a><strong>26、执行 pod 的 date 命令</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl <span class="hljs-built_in">exec</span> &lt;pod-name&gt; -- <span class="hljs-built_in">date</span><br>kubectl <span class="hljs-built_in">exec</span> &lt;pod-name&gt; -- bash<br>kubectl <span class="hljs-built_in">exec</span> &lt;pod-name&gt; -- ping 10.24.51.9<br></code></pre></td></tr></table></figure>
+
+<h3 id="27、通过-bash-获得-pod-中某个容器的-TTY，相当于登录容器"><a href="#27、通过-bash-获得-pod-中某个容器的-TTY，相当于登录容器" class="headerlink" title="27、通过 bash 获得 pod 中某个容器的 TTY，相当于登录容器"></a><strong>27、通过 bash 获得 pod 中某个容器的 TTY，相当于登录容器</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl <span class="hljs-built_in">exec</span> -it &lt;pod-name&gt; -c &lt;container-name&gt; -- bash<br>eg: kubectl <span class="hljs-built_in">exec</span> -it redis-master-cln81 -- bash<br></code></pre></td></tr></table></figure>
+
+<h3 id="28、查看容器的日志"><a href="#28、查看容器的日志" class="headerlink" title="28、查看容器的日志"></a><strong>28、查看容器的日志</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl logs &lt;pod-name&gt;<br>kubectl logs -f &lt;pod-name&gt; <span class="hljs-comment"># 实时查看日志</span><br>kubectl <span class="hljs-built_in">log</span> &lt;pod-name&gt; -c &lt;container_name&gt; <span class="hljs-comment"># 若 pod 只有一个容器，可以不加 -c</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="29、查看注释"><a href="#29、查看注释" class="headerlink" title="29、查看注释"></a><strong>29、查看注释</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl explain pod<br>kubectl explain pod.apiVersion<br></code></pre></td></tr></table></figure>
+
+<h3 id="30、查看节点-labels"><a href="#30、查看节点-labels" class="headerlink" title="30、查看节点 labels"></a><strong>30、查看节点 labels</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get node --show-labels<br></code></pre></td></tr></table></figure>
+
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/Docker-K8s/" class="category-chain-item">&lt;Docker K8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%9C%8D%E5%8A%A1%E5%99%A8/">#服务器</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>K8s &amp; Docker</div>
+      <div>http://example.com/2023/01/25/K8s &amp; Docker/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>Along</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年1月25日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/01/28/Dockerfile%E6%8C%87%E4%BB%A4%E8%AF%A6%E8%A7%A3/" title="Dockerfile指令详解">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">Dockerfile指令详解</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/01/18/Docker%E5%AE%B9%E5%99%A8%E6%97%A5%E5%BF%97/" title="Docker容器日志">
+                        <span class="hidden-mobile">Docker容器日志</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+  
+  
+    <article id="comments" lazyload>
+      
+  <div id="valine"></div>
+  <script type="text/javascript">
+    Fluid.utils.loadComments('#valine', function() {
+      Fluid.utils.createScript('https://lib.baomitu.com/valine/1.5.1/Valine.min.js', function() {
+        var options = Object.assign(
+          {"appId":"yfyxCH6385KLuweSoovXwOlm-gzGzoHsz","appKey":"mJnFLmqSoVyX0Gsp3K2ghPo8","path":"window.location.pathname","placeholder":"欢迎添加评论","avatar":"retro","meta":["nick","mail","link"],"requiredFields":[],"pageSize":10,"lang":"zh-CN","highlight":false,"recordIP":false,"serverURLs":"","emojiCDN":null,"emojiMaps":null,"enableQQ":false},
+          {
+            el: "#valine",
+            path: window.location.pathname
+          }
+        )
+        new Valine(options);
+        Fluid.utils.waitElementVisible('#valine .vcontent', () => {
+          var imgSelector = '#valine .vcontent img:not(.vemoji)';
+          Fluid.plugins.imageCaption(imgSelector);
+          Fluid.plugins.fancyBox(imgSelector);
+        })
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the comments</noscript>
+
+
+    </article>
+  
+
+
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+    <div class="statistics">
+  
+  
+
+  
+    
+      <span id="leancloud-site-pv-container" style="display: none">
+        总访问量 
+        <span id="leancloud-site-pv"></span>
+         次
+      </span>
+    
+    
+      <span id="leancloud-site-uv-container" style="display: none">
+        总访客数 
+        <span id="leancloud-site-uv"></span>
+         人
+      </span>
+    
+    
+
+  
+</div>
+
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script defer src="/js/leancloud.js" ></script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
