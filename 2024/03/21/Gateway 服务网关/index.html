@@ -16,18 +16,30 @@
   <meta name="author" content="Along">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Gateway 服务网关">
+    <meta name="description" content="Gateway 服务网关前言存在的问题 客户端多次请求不同的微服务，增加客户端代码或配置编写的复杂性认证复杂，每个服务都需要独立认证。存在跨域请求，在一定场景下处理相对复杂。  问题解决API网关  ​    所谓的API网关，就是指系统的统一入口，它封装了应用程序的内部结构，为客户端提供统一服务，一些与业务本身功能无关的公共逻辑可以在这里实现，诸如认证、鉴权、监控、路由转发等等。  架构变化">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Gateway 服务网关">
 <meta property="og:url" content="http://example.com/2024/03/21/Gateway%20%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/index.html">
 <meta property="og:site_name" content="Along">
-<meta property="og:description" content="Gateway 服务网关">
+<meta property="og:description" content="Gateway 服务网关前言存在的问题 客户端多次请求不同的微服务，增加客户端代码或配置编写的复杂性认证复杂，每个服务都需要独立认证。存在跨域请求，在一定场景下处理相对复杂。  问题解决API网关  ​    所谓的API网关，就是指系统的统一入口，它封装了应用程序的内部结构，为客户端提供统一服务，一些与业务本身功能无关的公共逻辑可以在这里实现，诸如认证、鉴权、监控、路由转发等等。  架构变化">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-11.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-12.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-13.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-14.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-15.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-16.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-17.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-20.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-18.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-19.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-21.png">
 <meta property="article:published_time" content="2024-03-20T16:00:00.000Z">
-<meta property="article:modified_time" content="2024-03-21T02:54:19.242Z">
+<meta property="article:modified_time" content="2024-03-21T10:05:01.058Z">
 <meta property="article:author" content="Along">
 <meta property="article:tag" content="微服务 springcloud">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-11.png">
   
   
   
@@ -237,7 +249,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          11 字
+          18k 字
         
       </span>
     
@@ -248,7 +260,7 @@
         
         
         
-          1 分钟
+          148 分钟
         
       </span>
     
@@ -299,7 +311,350 @@
             
               <div class="markdown-body">
                 
-                <h1 id="Gateway-服务网关"><a href="#Gateway-服务网关" class="headerlink" title="Gateway 服务网关"></a>Gateway 服务网关</h1>
+                <h1 id="Gateway-服务网关"><a href="#Gateway-服务网关" class="headerlink" title="Gateway 服务网关"></a>Gateway 服务网关</h1><h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><h3 id="存在的问题"><a href="#存在的问题" class="headerlink" title="存在的问题"></a>存在的问题</h3><blockquote>
+<p>客户端多次请求不同的微服务，增加客户端代码或配置编写的复杂性<br>认证复杂，每个服务都需要独立认证。<br>存在跨域请求，在一定场景下处理相对复杂。</p>
+</blockquote>
+<h3 id="问题解决"><a href="#问题解决" class="headerlink" title="问题解决"></a>问题解决</h3><p><strong>API网关</strong></p>
+<blockquote>
+<p>​    所谓的API网关，就是指系统的统一入口，它封装了应用程序的内部结构，为客户端提供统一服<br>务，一些与业务本身功能无关的公共逻辑可以在这里实现，诸如认证、鉴权、监控、路由转发等等。</p>
+</blockquote>
+<p>架构变化</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-11.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="1-Gateway介绍"><a href="#1-Gateway介绍" class="headerlink" title="1. Gateway介绍"></a>1. Gateway介绍</h2><blockquote>
+<p>​    Spring Cloud Gateway是Spring公司基于Spring 5.0，Spring Boot 2.0 和 Project Reactor 等技术开发的网关，它旨在为微服务架构提供一种简单有效的统一的 API 路由管理方式。它的目标是替代Netflix Zuul，其不仅提供统一的路由方式，并且基于 Filter 链的方式提供了网关基本的功能，例如：安全，监控和限流。</p>
+</blockquote>
+<p>优点</p>
+<ul>
+<li>性能强劲：是第一代网关Zuul的1.6倍</li>
+<li>功能强大：内置了很多实用的功能，例如转发、监控、限流等</li>
+<li>设计优雅，容易扩展</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>其实现依赖Netty与WebFlux，不是传统的Servlet编程模型，学习成本高</li>
+<li>不能将其部署在Tomcat、Jetty等Servlet容器里，只能打成jar包执行</li>
+<li>需要Spring Boot 2.0及以上的版本，才支持</li>
+</ul>
+<h2 id="2-Gateway-Nacos搭建"><a href="#2-Gateway-Nacos搭建" class="headerlink" title="2. Gateway+Nacos搭建"></a>2. Gateway+Nacos搭建</h2><h3 id="2-1-创建一个-api-gateway-的模块-导入相关依赖"><a href="#2-1-创建一个-api-gateway-的模块-导入相关依赖" class="headerlink" title="2.1 创建一个 api-gateway 的模块,导入相关依赖"></a>2.1 创建一个 api-gateway 的模块,导入相关依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-meta">&lt;?xml version=<span class="hljs-string">&quot;1.0&quot;</span> encoding=<span class="hljs-string">&quot;UTF-8&quot;</span>?&gt;</span><br><span class="hljs-tag">&lt;<span class="hljs-name">project</span> <span class="hljs-attr">xmlns</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xmlns:xsi</span>=<span class="hljs-string">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span></span><br><span class="hljs-tag">         <span class="hljs-attr">xsi:schemaLocation</span>=<span class="hljs-string">&quot;http://maven.apache.org/POM/4.0.0</span></span><br><span class="hljs-string"><span class="hljs-tag">http://maven.apache.org/xsd/maven-4.0.0.xsd&quot;</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">parent</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>springcloud-along<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.along<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">parent</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">modelVersion</span>&gt;</span>4.0.0<span class="hljs-tag">&lt;/<span class="hljs-name">modelVersion</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>api-gateway<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>    <span class="hljs-tag">&lt;<span class="hljs-name">dependencies</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--gateway网关--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>org.springframework.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-comment">&lt;!--nacos客户端--&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.cloud<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>        <span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.along<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>shop-common<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br>            <span class="hljs-tag">&lt;<span class="hljs-name">version</span>&gt;</span>1.0-SNAPSHOT<span class="hljs-tag">&lt;/<span class="hljs-name">version</span>&gt;</span><br>        <span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br>    <span class="hljs-tag">&lt;/<span class="hljs-name">dependencies</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">project</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-2-创建主类"><a href="#2-2-创建主类" class="headerlink" title="2.2 创建主类"></a>2.2 创建主类</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway;<br><br><span class="hljs-keyword">import</span> org.springframework.boot.SpringApplication;<br><span class="hljs-keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;<br><span class="hljs-keyword">import</span> org.springframework.cloud.client.discovery.EnableDiscoveryClient;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span></span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@SpringBootApplication</span><br><span class="hljs-meta">@EnableDiscoveryClient</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">ApiGatewayApplication</span> &#123;<br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">main</span><span class="hljs-params">(String[] args)</span> &#123;<br>        SpringApplication.run(ApiGatewayApplication.class, args);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h3 id="2-3-添加配置文件"><a href="#2-3-添加配置文件" class="headerlink" title="2.3 添加配置文件"></a>2.3 添加配置文件</h3><p><strong>注</strong></p>
+<blockquote>
+<p>此处配置文件为所有配置，后续不再详细展示</p>
+</blockquote>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">server:</span><br>  <span class="hljs-attr">port:</span> <span class="hljs-number">7000</span><br><span class="hljs-attr">spring:</span><br>  <span class="hljs-attr">application:</span><br>    <span class="hljs-attr">name:</span> <span class="hljs-string">api-gateway</span><br>  <span class="hljs-attr">profiles:</span><br>    <span class="hljs-attr">active:</span> <span class="hljs-string">@profileActive@</span><br>  <span class="hljs-attr">cloud:</span><br>    <span class="hljs-attr">nacos:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">server-addr:</span> <span class="hljs-number">150.158</span><span class="hljs-number">.79</span><span class="hljs-number">.228</span><span class="hljs-string">:8848</span><br>    <span class="hljs-attr">gateway:</span><br>      <span class="hljs-attr">discovery:</span><br>        <span class="hljs-attr">locator:</span><br>          <span class="hljs-attr">enabled:</span> <span class="hljs-literal">true</span> <span class="hljs-comment"># 让gateway可以发现nacos中的微服务</span><br>      <span class="hljs-attr">routes:</span> <span class="hljs-comment"># 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]</span><br>        <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">product_route</span> <span class="hljs-comment"># 当前路由的标识, 要求唯一</span><br>          <span class="hljs-attr">order:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 路由的优先级,数字越小级别越高</span><br>          <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://service-product-$&#123;spring.profiles.active&#125;</span> <span class="hljs-comment"># lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略</span><br>          <span class="hljs-attr">predicates:</span> <span class="hljs-comment"># 断言(就是路由转发要满足的条件)</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/product-service/**</span>  <span class="hljs-comment"># 当请求路径满足Path指定的规则时,才进行路由转发</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Before=2019-11-28T00:00:00.000+08:00</span> <span class="hljs-comment">#限制请求时间在2019-11-28之前</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Method=POST</span> <span class="hljs-comment">#限制请求方式为POST</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Age=18,60</span> <span class="hljs-comment"># 限制年龄只有在18到60岁之间的人能访问</span><br>          <span class="hljs-attr">filters:</span> <span class="hljs-comment"># 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span> <span class="hljs-comment"># 转发之前去掉1层路径</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">SetStatus=2000</span> <span class="hljs-comment"># 修改返回状态</span><br>            <span class="hljs-bullet">-</span> <span class="hljs-string">Log=true,false</span> <span class="hljs-comment"># 控制日志是否开启</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="2-4-启动产品和网关微服务，浏览器查看效果"><a href="#2-4-启动产品和网关微服务，浏览器查看效果" class="headerlink" title="2.4 启动产品和网关微服务，浏览器查看效果"></a>2.4 启动产品和网关微服务，浏览器查看效果</h3><p>断言配置 <code>Path=/product-service/**</code>，所以请求路径必须是这个才能转发</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-12.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-13.png" srcset="/img/loading.gif" lazyload></p>
+<h2 id="3-Gateway核心"><a href="#3-Gateway核心" class="headerlink" title="3. Gateway核心"></a>3. Gateway核心</h2><h3 id="3-1-基本概念"><a href="#3-1-基本概念" class="headerlink" title="3.1 基本概念"></a>3.1 基本概念</h3><p>路由(Route) 是 gateway 中最基本的组件之一，表示一个具体的路由信息载体。主要定义了下面的几个信息:</p>
+<ul>
+<li>id，路由标识符，区别于其他 Route。</li>
+<li>uri，路由指向的目的地 uri，即客户端请求最终被转发到的微服务。</li>
+<li>order，用于多个 Route 之间的排序，数值越小排序越靠前，匹配优先级越高。</li>
+<li>predicate，断言的作用是进行条件判断，只有断言都返回真，才会真正的执行路由。</li>
+<li>filter，过滤器用于修改请求和响应信息。</li>
+</ul>
+<h3 id="3-2-执行流程"><a href="#3-2-执行流程" class="headerlink" title="3.2 执行流程"></a>3.2 执行流程</h3><p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-14.png" srcset="/img/loading.gif" lazyload></p>
+<p>执行流程大体如下：</p>
+<ol>
+<li>Gateway Client向Gateway Server发送请求</li>
+<li>请求首先会被HttpWebHandlerAdapter进行提取组装成网关上下文</li>
+<li>然后网关的上下文会传递到DispatcherHandler，它负责将请求分发给<br>RoutePredicateHandlerMapping</li>
+<li>RoutePredicateHandlerMapping负责路由查找，并根据路由断言判断路由是否可用</li>
+<li>如果过断言成功，由FilteringWebHandler创建过滤器链并调用</li>
+<li>请求会一次经过PreFilter–微服务–PostFilter的方法，最终返回响应</li>
+</ol>
+<h2 id="4-断言"><a href="#4-断言" class="headerlink" title="4. 断言"></a>4. 断言</h2><blockquote>
+<p>Predicate(断言, 谓词) 用于进行条件判断，只有断言都返回真，才会真正的执行路由。<br>断言就是说: 在 什么条件下 才能进行路由转发</p>
+</blockquote>
+<h3 id="4-1-内置路由断言工厂"><a href="#4-1-内置路由断言工厂" class="headerlink" title="4.1 内置路由断言工厂"></a>4.1 内置路由断言工厂</h3><p>SpringCloud Gateway包括许多内置的断言工厂，所有这些断言都与HTTP请求的不同属性匹配。具体如下：</p>
+<ul>
+<li><p>基于Datetime类型的断言工厂</p>
+<p>此类型的断言根据时间做判断，主要有三个：</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm">AfterRoutePredicateFactory： 接收一个日期参数，判断请求日期是否晚于指定日期<br><span class="hljs-keyword">BeforeRoutePredicateFactory： </span>接收一个日期参数，判断请求日期是否早于指定日期<br><span class="hljs-keyword">BetweenRoutePredicateFactory： </span>接收两个日期参数，判断请求日期是否在指定时间段内<br></code></pre></td></tr></table></figure>
+
+<blockquote>
+<p>-After=2019-12-31T23:59:59.789+08:00[Asia/Shanghai]</p>
+</blockquote>
+</li>
+<li><p>基于远程地址的断言工厂 RemoteAddrRoutePredicateFactory：接收一个IP地址段，判断请求主<br>机地址是否在地址段中</p>
+<blockquote>
+<p>-RemoteAddr=192.168.1.1/24</p>
+</blockquote>
+</li>
+<li><p>基于Cookie的断言工厂</p>
+<p>CookieRoutePredicateFactory：接收两个参数，cookie 名字和一个正则表达式。 判断请求cookie是否具有给定名称且值与正则表达式匹配。</p>
+<blockquote>
+<p>-Cookie=chocolate, ch.</p>
+</blockquote>
+</li>
+<li><p>基于Header的断言工厂</p>
+<p>HeaderRoutePredicateFactory：接收两个参数，标题名称和正则表达式。 判断请求Header是否<br>具有给定名称且值与正则表达式匹配。</p>
+<blockquote>
+<p>-Header=X-Request-Id, \d+</p>
+</blockquote>
+</li>
+<li><p>基于Host的断言工厂</p>
+<p>HostRoutePredicateFactory：接收一个参数，主机名模式。判断请求的Host是否满足匹配规则。</p>
+<blockquote>
+<p>-Host=**.testhost.org</p>
+</blockquote>
+</li>
+<li><p>基于Method请求方法的断言工厂</p>
+<p>MethodRoutePredicateFactory：接收一个参数，判断请求类型是否跟指定的类型匹配。</p>
+<blockquote>
+<p>-Method=GET</p>
+</blockquote>
+</li>
+<li><p>基于Path请求路径的断言工厂</p>
+<p>PathRoutePredicateFactory：接收一个参数，判断请求的URI部分是否满足路径规则。</p>
+<blockquote>
+<p>-Path=/foo/{segment}</p>
+</blockquote>
+</li>
+<li><p>基于Query请求参数的断言工厂</p>
+<p>QueryRoutePredicateFactory ：接收两个参数，请求param和正则表达式， 判断请求参数是否具<br>有给定名称且值与正则表达式匹配。</p>
+<blockquote>
+<p>-Query=baz, ba.</p>
+</blockquote>
+</li>
+<li><p>基于路由权重的断言工厂</p>
+<p>WeightRoutePredicateFactory：接收一个[组名,权重], 然后对于同一个组内的路由按照权重转发</p>
+<blockquote>
+<p>routes:<br>-id: weight_route1 uri: host1 predicates:<br>-Path=/product/**<br>-Weight=group3, 1<br>-id: weight_route2 uri: host2 predicates:<br>-Path=/product/**<br>-Weight= group3, 9</p>
+</blockquote>
+</li>
+</ul>
+<p><strong>内置路由断言工厂的使用</strong></p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">routes:</span> <span class="hljs-comment"># 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">product_route</span> <span class="hljs-comment"># 当前路由的标识, 要求唯一</span><br>    <span class="hljs-attr">order:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 路由的优先级,数字越小级别越高</span><br>    <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://service-product-$&#123;spring.profiles.active&#125;</span> <span class="hljs-comment"># lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略</span><br>    <span class="hljs-attr">predicates:</span> <span class="hljs-comment"># 断言(就是路由转发要满足的条件)</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/product-service/**</span>  <span class="hljs-comment"># 当请求路径满足Path指定的规则时,才进行路由转发</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Before=2024-03-28T00:00:00.000+08:00</span> <span class="hljs-comment">#限制请求时间在2024-03-28之前</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Method=POST</span> <span class="hljs-comment">#限制请求方式为POST</span><br>    <span class="hljs-attr">filters:</span> <span class="hljs-comment"># 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span> <span class="hljs-comment"># 转发之前去掉1层路径</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="4-2-自定义路由断言工厂"><a href="#4-2-自定义路由断言工厂" class="headerlink" title="4.2 自定义路由断言工厂"></a>4.2 自定义路由断言工厂</h3><p><strong>场景：应用仅让age在(min,max)之间的人来访问</strong></p>
+<ul>
+<li><p>在配置文件中,添加一个Age的断言配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">predicates:</span><br>	<span class="hljs-bullet">-</span> <span class="hljs-string">Age=18,60</span> <span class="hljs-comment"># 限制年龄只有在18到60岁之间的人能访问</span><br></code></pre></td></tr></table></figure></li>
+<li><p>自定义一个断言工厂, 实现断言方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway.factory;<br><br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> org.apache.commons.lang3.StringUtils;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.handler.predicate.AbstractRoutePredicateFactory;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.List;<br><span class="hljs-keyword">import</span> java.util.function.Predicate;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span> 自定义断言工厂</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AgeRoutePredicateFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractRoutePredicateFactory</span>&lt;AgeRoutePredicateFactory.Config&gt; &#123; <span class="hljs-comment">//泛型 用于接收一个配置类,配置类用于接收中配置文件中的配置</span><br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">AgeRoutePredicateFactory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>(AgeRoutePredicateFactory.Config.class);<br>    &#125;<br><br>    <span class="hljs-comment">// 用于从配置文件中获取参数值赋值到配置类中的属性上</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">shortcutFieldOrder</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-comment">// 这里的顺序要跟配置文件中的参数顺序一致</span><br>        <span class="hljs-keyword">return</span> Arrays.asList(<span class="hljs-string">&quot;minAge&quot;</span>, <span class="hljs-string">&quot;maxAge&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 断言</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Predicate&lt;ServerWebExchange&gt; <span class="hljs-title function_">apply</span><span class="hljs-params">(Config config)</span> &#123;<br>        <span class="hljs-keyword">return</span> serverWebExchange -&gt; &#123;<br>            <span class="hljs-comment">// 从serverWebExchange获取传入的参数</span><br>            <span class="hljs-type">String</span> <span class="hljs-variable">ageStr</span> <span class="hljs-operator">=</span> serverWebExchange.getRequest().getQueryParams().getFirst(<span class="hljs-string">&quot;age&quot;</span>);<br>            <span class="hljs-keyword">if</span> (StringUtils.isNotEmpty(ageStr)) &#123;<br>                <span class="hljs-type">int</span> <span class="hljs-variable">age</span> <span class="hljs-operator">=</span> Integer.parseInt(ageStr);<br>                <span class="hljs-keyword">return</span> age &gt;= config.getMinAge() &amp;&amp; age &lt;= config.getMaxAge();<br>            &#125;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span>;<br>        &#125;;<br>    &#125;<br><br>    <span class="hljs-comment">// 自定义一个配置类, 用于接收配置文件中的参数</span><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span> &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> minAge;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">int</span> maxAge;<br>    &#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<p>访问url</p>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs basic">http://localhost:<span class="hljs-number">7000</span>/product-service/product/<span class="hljs-number">1</span>?age=<span class="hljs-number">30</span><br>http://localhost:<span class="hljs-number">7000</span>/product-service/product/<span class="hljs-number">1</span>?age=<span class="hljs-number">10</span><br></code></pre></td></tr></table></figure></li>
+</ul>
+<h2 id="5-过滤器"><a href="#5-过滤器" class="headerlink" title="5. 过滤器"></a>5. 过滤器</h2><blockquote>
+<ul>
+<li>作用: 过滤器就是在请求的传递过程中,对请求和响应做一些手脚</li>
+<li>生命周期: Pre Post</li>
+<li>分类: 局部过滤器(作用在某一个路由上) 全局过滤器(作用全部路由上)</li>
+</ul>
+<p>Gateway中, Filter的生命周期只有两个：“pre” 和 “post”。</p>
+<ul>
+<li>PRE： 这种过滤器在请求被路由之前调用。我们可利用这种过滤器实现身份验证、在集群中选择<br>请求的微服务、记录调试信息等。</li>
+<li>POST：这种过滤器在路由到微服务以后执行。这种过滤器可用来为响应添加标准的HTTP<br>Header、收集统计信息和指标、将响应从微服务发送给客户端等。</li>
+</ul>
+<p>Gateway 的Filter从作用范围可分为两种: GatewayFilter与GlobalFilter。</p>
+<ul>
+<li>GatewayFilter：应用到单个路由或者一个分组的路由上。</li>
+<li>GlobalFilter：应用到所有的路由上。</li>
+</ul>
+</blockquote>
+<h3 id="5-1-局部过滤器"><a href="#5-1-局部过滤器" class="headerlink" title="5.1 局部过滤器"></a>5.1 局部过滤器</h3><blockquote>
+<p>​    局部过滤器是针对单个路由的过滤器。</p>
+</blockquote>
+<h4 id="5-1-1-内置局部过滤器"><a href="#5-1-1-内置局部过滤器" class="headerlink" title="5.1.1 内置局部过滤器"></a>5.1.1 内置局部过滤器</h4><ul>
+<li>网关路由过滤器类型</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>过滤器工厂</th>
+<th>作用</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>AddRequestHeader</td>
+<td>为原始请求添加Header</td>
+<td>Header的名称及值</td>
+</tr>
+<tr>
+<td>AddRequestParameter</td>
+<td>为原始请求添加请求参数</td>
+<td>参数名称及值</td>
+</tr>
+<tr>
+<td>AddResponseHeader</td>
+<td>为原始响应添加Header</td>
+<td>Header的名称及值</td>
+</tr>
+<tr>
+<td>DedupeResponseHeader</td>
+<td>剔除响应头中重复的值</td>
+<td>需要去重的Header名称及去重策略</td>
+</tr>
+<tr>
+<td>Hystrix</td>
+<td>为路由引入Hystrix的断路器保护</td>
+<td>HystrixCommand的名称</td>
+</tr>
+<tr>
+<td>FallbackHeaders</td>
+<td>为fallbackUri的请求头中添加具体的异常信息</td>
+<td>Header的名称</td>
+</tr>
+<tr>
+<td>PrefixPath</td>
+<td>为原始请求路径添加前缀</td>
+<td>前缀路径</td>
+</tr>
+<tr>
+<td>PreserveHostHeader</td>
+<td>为请求添加一个preserveHostHeader=true的属性，路由过滤器会检查该属性以决定是否要发送原始的Host</td>
+<td></td>
+</tr>
+<tr>
+<td>RequestRateLimiter</td>
+<td>用于对请求限流，限流算法为令牌桶</td>
+<td>keyResolver、<br/>rateLimiter、<br/>statusCode、<br/>denyEmptyKey、<br/>emptyKeyStatus</td>
+</tr>
+<tr>
+<td>RedirectTo</td>
+<td>将原始请求重定向到指定的URL</td>
+<td>http状态码及重定向的url</td>
+</tr>
+<tr>
+<td>RemoveHopByHopHeadersFilter</td>
+<td>为原始请求删除IETF组织规定的一系列Header</td>
+<td>默认就会启用，可以通过配置指定仅删除哪些Header</td>
+</tr>
+<tr>
+<td>RemoveRequestHeader</td>
+<td>为原始请求删除某个Header</td>
+<td>Header名称</td>
+</tr>
+<tr>
+<td>RemoveResponseHeader</td>
+<td>为原始响应删除某个Header</td>
+<td>Header名称</td>
+</tr>
+<tr>
+<td>RewritePath</td>
+<td>重写原始的请求路径</td>
+<td>原始路径正则表达式以及重写后路径的正则表达式</td>
+</tr>
+<tr>
+<td>RewriteResponseHeader</td>
+<td>重写原始响应中的某个Header</td>
+<td>Header名称，值的正则表达式，重写后的值</td>
+</tr>
+<tr>
+<td>SaveSession</td>
+<td>在转发请求之前，强制执行<code>WebSession::save</code>操作</td>
+<td></td>
+</tr>
+<tr>
+<td>secureHeaders</td>
+<td>为原始响应添加一系列起安全作用的响应头</td>
+<td>无，支持修改这些安全响应头的值</td>
+</tr>
+<tr>
+<td>SetPath</td>
+<td>修改原始的请求路径</td>
+<td>修改后的路径</td>
+</tr>
+<tr>
+<td>SetResponseHeader</td>
+<td>修改原始响应中某个Header的值</td>
+<td>Header名称，修改后的值</td>
+</tr>
+<tr>
+<td>SetStatus</td>
+<td>修改原始响应的状态码</td>
+<td>HTTP 状态码，可以是数字，也可以是字符串</td>
+</tr>
+<tr>
+<td>StripPrefix</td>
+<td>用于截断原始请求的路径</td>
+<td>使用数字表示要截断的路径的数量</td>
+</tr>
+<tr>
+<td>Retry</td>
+<td>针对不同的响应进行重试</td>
+<td>retries、statuses、methods、series</td>
+</tr>
+<tr>
+<td>RequestSize</td>
+<td>设置允许接收最大请求包的大小。如果请求包大小超过设置的值，则返回 413 Payload TooLarge</td>
+<td>请求包大小，单位为字节，默认值为5M</td>
+</tr>
+<tr>
+<td>ModifyRequestBody</td>
+<td>在转发请求之前修改原始请求体内容</td>
+<td>修改后的请求体内容</td>
+</tr>
+<tr>
+<td>ModifyResponseBody</td>
+<td>修改原始响应体的内容</td>
+<td>修改后的响应体内容</td>
+</tr>
+</tbody></table>
+<h4 id="5-1-2-内置局部过滤器的使用"><a href="#5-1-2-内置局部过滤器的使用" class="headerlink" title="5.1.2 内置局部过滤器的使用"></a>5.1.2 内置局部过滤器的使用</h4><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">routes:</span> <span class="hljs-comment"># 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">product_route</span> <span class="hljs-comment"># 当前路由的标识, 要求唯一</span><br>    <span class="hljs-attr">order:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 路由的优先级,数字越小级别越高</span><br>    <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://service-product-$&#123;spring.profiles.active&#125;</span> <span class="hljs-comment"># lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略</span><br>    <span class="hljs-attr">predicates:</span> <span class="hljs-comment"># 断言(就是路由转发要满足的条件)</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/product-service/**</span>  <span class="hljs-comment"># 当请求路径满足Path指定的规则时,才进行路由转发</span><br>    <span class="hljs-attr">filters:</span> <span class="hljs-comment"># 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span> <span class="hljs-comment"># 转发之前去掉1层路径</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">SetStatus=2000</span> <span class="hljs-comment"># 修改返回状态</span><br></code></pre></td></tr></table></figure>
+
+<ul>
+<li><p>自定义局部过滤器</p>
+<p>第1步：在配置文件中,添加一个Log的过滤器配置</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">routes:</span> <span class="hljs-comment"># 路由数组[路由 就是指定当请求满足什么条件的时候转到哪个微服务]</span><br>  <span class="hljs-bullet">-</span> <span class="hljs-attr">id:</span> <span class="hljs-string">product_route</span> <span class="hljs-comment"># 当前路由的标识, 要求唯一</span><br>    <span class="hljs-attr">order:</span> <span class="hljs-number">1</span> <span class="hljs-comment"># 路由的优先级,数字越小级别越高</span><br>    <span class="hljs-attr">uri:</span> <span class="hljs-string">lb://service-product-$&#123;spring.profiles.active&#125;</span> <span class="hljs-comment"># lb指的是从nacos中按照名称获取微服务,并遵循负载均衡策略</span><br>    <span class="hljs-attr">predicates:</span> <span class="hljs-comment"># 断言(就是路由转发要满足的条件)</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Path=/product-service/**</span>  <span class="hljs-comment"># 当请求路径满足Path指定的规则时,才进行路由转发</span><br>    <span class="hljs-attr">filters:</span> <span class="hljs-comment"># 过滤器,请求在传递过程中可以通过过滤器对其进行一定的修改</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">StripPrefix=1</span> <span class="hljs-comment"># 转发之前去掉1层路径</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">SetStatus=2000</span> <span class="hljs-comment"># 修改返回状态</span><br>      <span class="hljs-bullet">-</span> <span class="hljs-string">Log=true,false</span> <span class="hljs-comment"># 控制日志是否开启</span><br></code></pre></td></tr></table></figure>
+
+<p>第2步：自定义一个过滤器工厂,实现方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway.factory;<br><br><span class="hljs-keyword">import</span> lombok.Data;<br><span class="hljs-keyword">import</span> lombok.NoArgsConstructor;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilter;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><br><span class="hljs-keyword">import</span> java.util.Arrays;<br><span class="hljs-keyword">import</span> java.util.List;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span> 过滤器工厂</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">LogGatewayFilterFactory</span> <span class="hljs-keyword">extends</span> <span class="hljs-title class_">AbstractGatewayFilterFactory</span>&lt;LogGatewayFilterFactory.Config&gt; &#123;<br><br>    <span class="hljs-comment">// 构造函数</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">LogGatewayFilterFactory</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-built_in">super</span>(LogGatewayFilterFactory.Config.class);<br>    &#125;<br><br>    <span class="hljs-comment">// 读取配置文件中的参数 赋值到 配置类中</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> List&lt;String&gt; <span class="hljs-title function_">shortcutFieldOrder</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> Arrays.asList(<span class="hljs-string">&quot;consoleLog&quot;</span>, <span class="hljs-string">&quot;cacheLog&quot;</span>);<br>    &#125;<br><br>    <span class="hljs-comment">// 过滤器逻辑</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> GatewayFilter <span class="hljs-title function_">apply</span><span class="hljs-params">(LogGatewayFilterFactory.Config config)</span> &#123;<br>        <span class="hljs-keyword">return</span> (exchange, chain) -&gt; &#123;<br>            <span class="hljs-keyword">if</span> (config.isCacheLog()) &#123;<br>                System.out.println(<span class="hljs-string">&quot;cacheLog已经开启了....&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">if</span> (config.isConsoleLog()) &#123;<br>                System.out.println(<span class="hljs-string">&quot;consoleLog已经开启了....&quot;</span>);<br>            &#125;<br>            <span class="hljs-keyword">return</span> chain.filter(exchange);<br>        &#125;;<br>    &#125;<br><br>    <span class="hljs-comment">// 配置类 接收配置参数</span><br>    <span class="hljs-meta">@Data</span><br>    <span class="hljs-meta">@NoArgsConstructor</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">Config</span> &#123;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> consoleLog;<br>        <span class="hljs-keyword">private</span> <span class="hljs-type">boolean</span> cacheLog;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="5-2-全局过滤器"><a href="#5-2-全局过滤器" class="headerlink" title="5.2 全局过滤器"></a>5.2 全局过滤器</h3><blockquote>
+<p>​    全局过滤器作用于所有路由, 无需配置。通过全局过滤器可以实现对权限的统一校验，安全性验证等功能。</p>
+</blockquote>
+<h4 id="5-2-1-内置全局过滤器"><a href="#5-2-1-内置全局过滤器" class="headerlink" title="5.2.1 内置全局过滤器"></a>5.2.1 内置全局过滤器</h4><p>SpringCloud Gateway内部也是通过一系列的内置全局过滤器对整个路由转发进行处理如下：</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-15.png" srcset="/img/loading.gif" lazyload></p>
+<h4 id="5-2-2-内置全局过滤器的使用"><a href="#5-2-2-内置全局过滤器的使用" class="headerlink" title="5.2.2 内置全局过滤器的使用"></a>5.2.2 内置全局过滤器的使用</h4><blockquote>
+<p>​    内置的过滤器已经可以完成大部分的功能，但是对于企业开发的一些业务功能处理，还是需要我们自己编写过滤器来实现的，那么我们一起通过代码的形式自定义一个过滤器，去完成统一的权限校验。</p>
+</blockquote>
+<p>开发中的鉴权逻辑：</p>
+<ul>
+<li>当客户端第一次请求服务时，服务端对用户进行信息认证（登录）</li>
+<li>认证通过，将用户信息进行加密形成token，返回给客户端，作为登录凭证</li>
+<li>以后每次请求，客户端都携带认证的token</li>
+<li>服务端对token进行解密，判断是否有效。</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-16.png" srcset="/img/loading.gif" lazyload></p>
+<ul>
+<li><p>自定义全局过滤器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway.filter;<br><br><span class="hljs-keyword">import</span> com.alibaba.nacos.client.utils.StringUtils;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;<br><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;<br><span class="hljs-keyword">import</span> org.springframework.stereotype.Component;<br><span class="hljs-keyword">import</span> org.springframework.web.server.ServerWebExchange;<br><span class="hljs-keyword">import</span> reactor.core.publisher.Mono;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span> 全局过滤器 实现GlobalFilter和Ordered接口</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Component</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">AuthGlobalFilter</span> <span class="hljs-keyword">implements</span> <span class="hljs-title class_">GlobalFilter</span>, Ordered &#123;<br><br>    <span class="hljs-comment">// 完成判断逻辑</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> Mono&lt;Void&gt; <span class="hljs-title function_">filter</span><span class="hljs-params">(ServerWebExchange exchange, GatewayFilterChain</span><br><span class="hljs-params">            chain)</span> &#123;<br>        <span class="hljs-type">String</span> <span class="hljs-variable">token</span> <span class="hljs-operator">=</span> exchange.getRequest().getQueryParams().getFirst(<span class="hljs-string">&quot;token&quot;</span>);<br>        <span class="hljs-keyword">if</span> (StringUtils.isBlank(token)) &#123;<br>            System.out.println(<span class="hljs-string">&quot;鉴权失败&quot;</span>);<br>            exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);<br>            <span class="hljs-keyword">return</span> exchange.getResponse().setComplete();<br>        &#125;<br>        <span class="hljs-comment">// 调用chain.filter继续向下游执行</span><br>        <span class="hljs-keyword">return</span> chain.filter(exchange);<br>    &#125;<br><br>    <span class="hljs-comment">// 顺序,数值越小,优先级越高</span><br>    <span class="hljs-meta">@Override</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getOrder</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<h4 id="5-2-3-测试结果"><a href="#5-2-3-测试结果" class="headerlink" title="5.2.3 测试结果"></a>5.2.3 测试结果</h4><p>带token请求</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-17.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-20.png" srcset="/img/loading.gif" lazyload></p>
+<p>不带token请求</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-18.png" srcset="/img/loading.gif" lazyload></p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-19.png" srcset="/img/loading.gif" lazyload></p>
+</li>
+</ul>
+<h2 id="6-网关限流"><a href="#6-网关限流" class="headerlink" title="6.网关限流"></a>6.网关限流</h2><blockquote>
+<p>​    网关是所有请求的公共入口，所以可以在网关进行限流，而且限流的方式也很多，我们本次采用前<br>面学过的Sentinel组件来实现网关的限流。Sentinel支持对SpringCloud Gateway、Zuul等主流网关进行限流。</p>
+</blockquote>
+<p>Sentinel提供了SpringCloud Gateway的适配模块，可以提供两种资源维度的限流：</p>
+<ul>
+<li>route维度：即在Spring配置文件中配置的路由条目，资源名为对应的routeId</li>
+<li>自定义API维度：用户可以利用Sentinel提供的API来自定义一些API分组</li>
+</ul>
+<h3 id="6-1-导入依赖"><a href="#6-1-导入依赖" class="headerlink" title="6.1 导入依赖"></a>6.1 导入依赖</h3><figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs xml"><span class="hljs-tag">&lt;<span class="hljs-name">dependency</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">groupId</span>&gt;</span>com.alibaba.csp<span class="hljs-tag">&lt;/<span class="hljs-name">groupId</span>&gt;</span><br>	<span class="hljs-tag">&lt;<span class="hljs-name">artifactId</span>&gt;</span>sentinel-spring-cloud-gateway-adapter<span class="hljs-tag">&lt;/<span class="hljs-name">artifactId</span>&gt;</span><br><span class="hljs-tag">&lt;/<span class="hljs-name">dependency</span>&gt;</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="6-2-编写配置类"><a href="#6-2-编写配置类" class="headerlink" title="6.2 编写配置类"></a>6.2 编写配置类</h3><ul>
+<li><p>基于Sentinel 的Gateway限流是通过其提供的Filter来完成的，使用时只需注入对应的SentinelGatewayFilter实例以及SentinelGatewayBlockExceptionHandler 实例即可。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway.config;<br><br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.sc.SentinelGatewayFilter;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.sc.callback.BlockRequestHandler;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.sc.callback.GatewayCallbackManager;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.sc.exception.SentinelGatewayBlockExceptionHandler;<br><span class="hljs-keyword">import</span> org.springframework.beans.factory.ObjectProvider;<br><span class="hljs-keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Bean;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><span class="hljs-keyword">import</span> org.springframework.core.Ordered;<br><span class="hljs-keyword">import</span> org.springframework.core.annotation.Order;<br><span class="hljs-keyword">import</span> org.springframework.http.HttpStatus;<br><span class="hljs-keyword">import</span> org.springframework.http.MediaType;<br><span class="hljs-keyword">import</span> org.springframework.http.codec.ServerCodecConfigurer;<br><span class="hljs-keyword">import</span> org.springframework.web.reactive.function.BodyInserters;<br><span class="hljs-keyword">import</span> org.springframework.web.reactive.function.server.ServerResponse;<br><span class="hljs-keyword">import</span> org.springframework.web.reactive.result.view.ViewResolver;<br><br><span class="hljs-keyword">import</span> javax.annotation.PostConstruct;<br><span class="hljs-keyword">import</span> java.util.*;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span> Filter 限流配置类</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GatewayConfiguration</span> &#123;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> List&lt;ViewResolver&gt; viewResolvers;<br><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">final</span> ServerCodecConfigurer serverCodecConfigurer;<br><br>    <span class="hljs-keyword">public</span> <span class="hljs-title function_">GatewayConfiguration</span><span class="hljs-params">(ObjectProvider&lt;List&lt;ViewResolver&gt;&gt;</span><br><span class="hljs-params">                                        viewResolversProvider,</span><br><span class="hljs-params">                                ServerCodecConfigurer serverCodecConfigurer)</span> &#123;<br>        <span class="hljs-built_in">this</span>.viewResolvers =<br>                viewResolversProvider.getIfAvailable(Collections::emptyList);<br>        <span class="hljs-built_in">this</span>.serverCodecConfigurer = serverCodecConfigurer;<br>    &#125;<br><br>    <span class="hljs-comment">// 初始化一个限流的过滤器</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span><br>    <span class="hljs-keyword">public</span> GlobalFilter <span class="hljs-title function_">sentinelGatewayFilter</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SentinelGatewayFilter</span>();<br>    &#125;<br><br>    <span class="hljs-comment">// 配置初始化的限流参数</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initGatewayRules</span><span class="hljs-params">()</span> &#123;<br>        Set&lt;GatewayFlowRule&gt; rules = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        rules.add(<br>                <span class="hljs-keyword">new</span> <span class="hljs-title class_">GatewayFlowRule</span>(<span class="hljs-string">&quot;product_route&quot;</span>) <span class="hljs-comment">//资源名称,对应路由id</span><br>                        .setCount(<span class="hljs-number">1</span>) <span class="hljs-comment">// 限流阈值</span><br>                        .setIntervalSec(<span class="hljs-number">5</span>) <span class="hljs-comment">// 统计时间窗口，单位是秒，默认是 1 秒</span><br>        );<br>        GatewayRuleManager.loadRules(rules);<br>    &#125;<br><br>    <span class="hljs-comment">// 配置限流的异常处理器</span><br>    <span class="hljs-meta">@Bean</span><br>    <span class="hljs-meta">@Order(Ordered.HIGHEST_PRECEDENCE)</span><br>    <span class="hljs-keyword">public</span> SentinelGatewayBlockExceptionHandler<br>    <span class="hljs-title function_">sentinelGatewayBlockExceptionHandler</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">SentinelGatewayBlockExceptionHandler</span>(viewResolvers,<br>                serverCodecConfigurer);<br>    &#125;<br><br>    <span class="hljs-comment">// 自定义限流异常页面</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initBlockHandlers</span><span class="hljs-params">()</span> &#123;<br>        <span class="hljs-type">BlockRequestHandler</span> <span class="hljs-variable">blockRequestHandler</span> <span class="hljs-operator">=</span> (serverWebExchange, throwable) -&gt; &#123;<br>            Map&lt;Object, Object&gt; map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashMap</span>&lt;&gt;();<br>            map.put(<span class="hljs-string">&quot;code&quot;</span>, <span class="hljs-number">0</span>);<br>            map.put(<span class="hljs-string">&quot;message&quot;</span>, <span class="hljs-string">&quot;接口被限流了&quot;</span>);<br>            <span class="hljs-keyword">return</span> ServerResponse.status(HttpStatus.OK).<br>                    contentType(MediaType.APPLICATION_JSON_UTF8).<br>                    body(BodyInserters.fromObject(map));<br>        &#125;;<br>        GatewayCallbackManager.setBlockHandler(blockRequestHandler);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+<li><p>自定义API分组</p>
+<p>自定义API分组是一种更细粒度的限流规则定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs java"><span class="hljs-keyword">package</span> com.along.gateway.config;<br><br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.SentinelGatewayConstants;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiDefinition;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPathPredicateItem;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.api.ApiPredicateItem;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.api.GatewayApiDefinitionManager;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayFlowRule;<br><span class="hljs-keyword">import</span> com.alibaba.csp.sentinel.adapter.gateway.common.rule.GatewayRuleManager;<br><span class="hljs-keyword">import</span> org.springframework.context.annotation.Configuration;<br><br><span class="hljs-keyword">import</span> javax.annotation.PostConstruct;<br><span class="hljs-keyword">import</span> java.util.HashSet;<br><span class="hljs-keyword">import</span> java.util.Set;<br><br><span class="hljs-comment">/**</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Desc</span> Gateway rules configuration</span><br><span class="hljs-comment"> * <span class="hljs-doctag">@Author</span> wangtianlong</span><br><span class="hljs-comment"> */</span><br><span class="hljs-meta">@Configuration</span><br><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title class_">GatewayRulesConfiguration</span> &#123;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化网关流规则</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initGatewayRules</span><span class="hljs-params">()</span> &#123;<br>        Set&lt;GatewayFlowRule&gt; rules = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        rules.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">GatewayFlowRule</span>(<span class="hljs-string">&quot;product_api1&quot;</span>).setCount(<span class="hljs-number">1</span>).setIntervalSec(<span class="hljs-number">1</span>));<br>        rules.add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">GatewayFlowRule</span>(<span class="hljs-string">&quot;product_api2&quot;</span>).setCount(<span class="hljs-number">1</span>).setIntervalSec(<span class="hljs-number">1</span>));<br>        GatewayRuleManager.loadRules(rules);<br>    &#125;<br><br>    <span class="hljs-comment">/**</span><br><span class="hljs-comment">     * 初始化自定义API</span><br><span class="hljs-comment">     */</span><br>    <span class="hljs-meta">@PostConstruct</span><br>    <span class="hljs-keyword">private</span> <span class="hljs-keyword">void</span> <span class="hljs-title function_">initCustomizedApis</span><span class="hljs-params">()</span> &#123;<br>        Set&lt;ApiDefinition&gt; definitions = <span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;&gt;();<br>        <span class="hljs-type">ApiDefinition</span> <span class="hljs-variable">api1</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiDefinition</span>(<span class="hljs-string">&quot;product_api1&quot;</span>)<br>                .setPredicateItems(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;ApiPredicateItem&gt;() &#123;&#123;<br>                    add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiPathPredicateItem</span>().setPattern(<span class="hljs-string">&quot;/productserv/product/api1/**&quot;</span>)<br>                            .setMatchStrategy(SentinelGatewayConstants.URL_MATCH_STRATEGY_PREFIX));<br>                &#125;&#125;);<br>        <span class="hljs-type">ApiDefinition</span> <span class="hljs-variable">api2</span> <span class="hljs-operator">=</span> <span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiDefinition</span>(<span class="hljs-string">&quot;product_api2&quot;</span>)<br>                .setPredicateItems(<span class="hljs-keyword">new</span> <span class="hljs-title class_">HashSet</span>&lt;ApiPredicateItem&gt;() &#123;&#123;<br>                    add(<span class="hljs-keyword">new</span> <span class="hljs-title class_">ApiPathPredicateItem</span>().setPattern(<span class="hljs-string">&quot;/productserv/product/api2/demo1&quot;</span>));<br>                &#125;&#125;);<br>        definitions.add(api1);<br>        definitions.add(api2);<br>        GatewayApiDefinitionManager.loadApiDefinitions(definitions);<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="6-3-测试"><a href="#6-3-测试" class="headerlink" title="6.3 测试"></a>6.3 测试</h3><p>连续请求，查看效果如下</p>
+<p><img src="https://raw.githubusercontent.com/oCo0c0/oCo0c0.github.io/main/img/springcloud-nacos-21.png" srcset="/img/loading.gif" lazyload></p>
+
                 
               </div>
             
