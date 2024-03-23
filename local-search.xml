@@ -4,6 +4,131 @@
   
   
   <entry>
+    <title>Dubbo rpc通信</title>
+    <link href="/2024/03/24/Dubbo%20rpc%E9%80%9A%E4%BF%A1/"/>
+    <url>/2024/03/24/Dubbo%20rpc%E9%80%9A%E4%BF%A1/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>&lt;微服务</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务 springcloud</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Rocketmq 消息驱动</title>
+    <link href="/2024/03/24/Rocketmq%20%E6%B6%88%E6%81%AF%E9%A9%B1%E5%8A%A8/"/>
+    <url>/2024/03/24/Rocketmq%20%E6%B6%88%E6%81%AF%E9%A9%B1%E5%8A%A8/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>&lt;微服务</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务 springcloud</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Sentinel 服务容错</title>
+    <link href="/2024/03/24/Sentinel%20%E6%9C%8D%E5%8A%A1%E5%AE%B9%E9%94%99/"/>
+    <url>/2024/03/24/Sentinel%20%E6%9C%8D%E5%8A%A1%E5%AE%B9%E9%94%99/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>&lt;微服务</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务 springcloud</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Seata 分布式事务</title>
+    <link href="/2024/03/24/Seata%20%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/"/>
+    <url>/2024/03/24/Seata%20%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>&lt;微服务</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务 springcloud</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>Sleuth 链路追踪</title>
+    <link href="/2024/03/24/Sleuth%20%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/"/>
+    <url>/2024/03/24/Sleuth%20%E9%93%BE%E8%B7%AF%E8%BF%BD%E8%B8%AA/</url>
+    
+    <content type="html"><![CDATA[]]></content>
+    
+    
+    <categories>
+      
+      <category>&lt;微服务</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>微服务 springcloud</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>Gateway 服务网关</title>
     <link href="/2024/03/21/Gateway%20%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/"/>
     <url>/2024/03/21/Gateway%20%E6%9C%8D%E5%8A%A1%E7%BD%91%E5%85%B3/</url>
